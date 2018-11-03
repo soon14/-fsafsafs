@@ -1,0 +1,4 @@
+Запускаем selenium:
+java -jar selenium-server-standalone-3.14.0.jar -timeout 0 -browserTimeout 0
+Заходим на index.html
+В верхние три поля html страницы нужно ввести ссылку на инстаграм которую хотим парсить, и свой логин и пароль от инстаграма
