@@ -17,21 +17,12 @@
     function writeDbArray($link, $array, $tableName)
     {
         $query = "";
-        //try {
-            foreach ($array as $key => $element) {
-                //$columns = implode(", ", array_keys($element));
-                //$escaped_values = array_map(array($link, 'real_escape_string'), array_values($element));
-                //$values = implode(", ", array_values($element));
+        foreach ($array as $key => $element) {
 
-                $query = "INSERT INTO `useid`.`" . $tableName . "`(loginUser, userName, fotoLink, instagramLink, facebookLink) VALUES ('" . $element['loginUser'] . "', '" . $element['userName'] . "', '" . $element['fotoLink'] . "', '" . $element['instagramLink'] . "', '" . $element['facebookLink'] . "'); ";
+            $query = "INSERT INTO `useid`.`" . $tableName . "`(loginUser, userName, fotoLink, instagramLink, facebookLink) VALUES ('" . $element['loginUser'] . "', '" . $element['userName'] . "', '" . $element['fotoLink'] . "', '" . $element['instagramLink'] . "', '" . $element['facebookLink'] . "'); ";
 
-
-                $result = @mysqli_query($link, $query);
-            }
-        /*}
-        catch(Exception $e){
-
-        }*/
+            $result = @mysqli_query($link, $query);
+        }
         return $result;
     }
 
