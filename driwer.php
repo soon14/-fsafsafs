@@ -48,7 +48,8 @@ if ($continueScrolling === false || empty($_SESSION[$userURL . '_SessionID'])) {
 
     $chromeOptions->addArguments($arguments);
     $chromeOptions->addExtensions(['Block-image_v1.1.crx']); //плагин блокирующий загрузку изображений
-
+    $chromeOptions->addArguments(['--no-sandbox']);
+    
     $desired_capabilities = DesiredCapabilities::chrome();
     $desired_capabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
     $driver = RemoteWebDriver::create($host, $desired_capabilities, 1000000000, 1000000000);
