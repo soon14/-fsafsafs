@@ -25,7 +25,7 @@ include "write_db.php";
 $urlFacebook = 'https://www.facebook.com/';
 $urlInstagram = 'https://www.instagram.com/';
 
-session_start();
+//session_start();
 
 if ($createNewTable === true) {
     createTable($userURL);
