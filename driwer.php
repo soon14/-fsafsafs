@@ -228,8 +228,6 @@ function fetchData($url)
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-
-
     $result = curl_exec($ch);
     curl_close($ch);
     return $result;
