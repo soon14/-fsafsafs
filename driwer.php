@@ -29,7 +29,7 @@ if ($createNewTable === true) {
     createTable($userURL);
 }
 
-$indexWrite = 0; //добавил
+$indexWrite = 0; 
 
 if ($continueScrolling === false)
 {
@@ -188,7 +188,7 @@ function workWithHtml($shiftArray, $handles)
         writeDbArray($link, $arrayResult, $userURL);
     }
 
-    $timeHis = time(); //добавил
+    $timeHis = time(); 
 
     ////$driver->switchTo()->window($mainTab); //переключаемся на старую вкладку
 }
