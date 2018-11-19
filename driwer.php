@@ -172,7 +172,7 @@ function workWithHtml($shiftArray, $handles)
                 $parseArr[$key]['facebookUID'] = preg_replace("/[^,.0-9]/", '', $match4[0][2]);
             }
             //____________________
-            if (///!empty($htmlFb) && stristr($htmlFb, $texeErr, 0) === false  //проверяем нет ли ошибки добавить @
+            if (///!empty($htmlFb) && stristr($htmlFb, $texeErr, 0) === false  //проверяем нет ли ошибки
                 !empty($word) && stristr($htmlFb, $word,0) !== false && strlen($word) > 0 //проверяем есть ли имя на странице в фб
                 && !empty($match4[0][2]))  //доп проверка, найден ли uid
             { //ищем на странице имя пользователя
