@@ -160,9 +160,9 @@ function workWithHtml($shiftArray, $handles)
             }*/
             //______ используем curl ______
             $htmlFb = @fetchData($facebookLink);
-
-            $texeErr = 'недоступ';                              //эта часть текста есть в случаи ошибки
             //____________________
+            $texeErr = 'недоступ';                              //эта часть текста есть в случаи ошибки
+            
             $explodeName = explode(" ", $element['userName']);
             $word = $explodeName[0]; //первая часть имени до пробела
 
