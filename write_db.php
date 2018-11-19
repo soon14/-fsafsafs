@@ -16,10 +16,6 @@ function writeDbArray($link, $array, $tableName)
     $query = "";
 
     foreach ($array as $key => $element) {
-        //$columns = implode(", ", array_keys($element));
-        //$escaped_values = array_map(array($link, 'real_escape_string'), array_values($element));
-        //$values = implode(", ", array_values($element));
-
         $query = "INSERT INTO `".MYSQL_DB."`.`" . $tableName . "`(loginUser, userName, fotoLink, instagramLink, facebookLink, facebookUID) VALUES ('" . $element['loginUser'] . "', '" . $element['userName'] . "', '" . $element['fotoLink'] . "', '" . $element['instagramLink'] . "', '" . $element['facebookLink'] . "', '" .$element['facebookUID']."'); ";
         $result = @mysqli_query($link, $query);
     }
