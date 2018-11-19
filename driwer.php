@@ -61,15 +61,13 @@ if ($continueScrolling === false)
     $element = $driver->findElements(WebDriverBy::tagName("li"));
     $element[1]->click();                                   //нажимаем на подписчиков
     sleep(3);
-
-    $i = 0;
     ////$driver->executeScript('window.open(arguments[0])');   //открываем js новую вкладку
 }
 
 ///$driver = RemoteWebDriver::createBySessionID($SessionID, 'http://localhost:4444/wd/hub');
 ///$driver->manage()->timeouts()->pageLoadTimeout(10000);
 //$driver->manage()->timeouts()->implicitlyWait(0);
-$handles = []; $timeHis = 0;
+$handles = []; $timeHis = 0; $i = 0;
 ////$handles = $driver->getWindowHandles();                //получаем список вкладок
 ////$newTab = $handles[1]; $mainTab = $handles[0];
 ////$driver->switchTo()->window($mainTab);
