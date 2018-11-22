@@ -10,14 +10,14 @@ use LimitIterator;
 use ArrayIterator;
 use Exception;
 
-//Пподключаем автолоадер классов
+
 set_time_limit(0);
 ini_set('max_execution_time', 0);
 ini_set('memory_limit', '-1');
 ini_set('display_errors', 0);
 ini_set('error_reporting', 0);
 //error_reporting(E_ALL);
-
+//Подключаем автолоадер классов
 require_once('autoload.php');
 include "input.php";
 include "write_db.php";
