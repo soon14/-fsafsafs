@@ -13,6 +13,7 @@ use Exception;
 //Пподключаем автолоадер классов
 set_time_limit(0);
 ini_set('max_execution_time', 0);
+ini_set('memory_limit', '-1');
 ini_set('display_errors', 0);
 ini_set('error_reporting', 0);
 //error_reporting(E_ALL);
@@ -159,7 +160,7 @@ function workWithHtml($shiftArray, $handles)
                 $htmlFb = $driver->getPageSource();                 //получаем код страницы фб
             }*/
             //______ используем curl ______
-            $htmlFb = @fetchData($facebookLink);
+            $htmlFb = fetchData($facebookLink);
             //____________________
             $texeErr = 'недоступ';                              //эта часть текста есть в случаи ошибки
             
