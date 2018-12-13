@@ -11,12 +11,27 @@ function connectDb()
     return $link;
 }
 
-function writeDbArray($link, $array, $tableName)
+function sqlHelper($nRequest, $element, $tableName)
+{
+    if($nRequest === 1){
+        return "INSERT INTO `".MYSQL_DB."`.`" . $tableName . "`(loginUser, userName, fotoLink, instagramLink, facebookLink, facebookUID) VALUES ('" . $element['loginUser'] . "', '" . $element['userName'] . "', '" . $element['fotoLink'] . "', '" . $element['instagramLink'] . "', '" . $element['facebookLink'] . "', '" .$element['facebookUID']."'); ";
+    }
+    if($nRequest === 2){
+        return "INSERT INTO `".MYSQL_DB."`.`" . $tableName . "`(url, ln, fn, phone, email, birthday) VALUES ('" . $element['url'] . "', '" . $element['ln'] . "', '" . $element['fn'] . "', '" . $element['phone'] . "', '" . $element['email'] . "', '" .$element['birthday']."'); ";
+    }
+}
+
+function writeDbArray($idSql, $link, $array, $tableName, $shiftArray)
 {
     $query = "";
+    if($shiftArray >= count($array)) $shiftArray = count($array) - 1;
+    $Arr = new LimitIterator(new ArrayIterator($array), $shiftArray);
+    foreach($Arr as $key => $element) {
+        //$columns = implode(", ", array_keys($element));
+        //$escaped_values = array_map(array($link, 'real_escape_string'), array_values($element));
+        //$values = implode(", ", array_values($element));
 
-    foreach ($array as $key => $element) {
-        $query = "INSERT INTO `".MYSQL_DB."`.`" . $tableName . "`(loginUser, userName, fotoLink, instagramLink, facebookLink, facebookUID) VALUES ('" . $element['loginUser'] . "', '" . $element['userName'] . "', '" . $element['fotoLink'] . "', '" . $element['instagramLink'] . "', '" . $element['facebookLink'] . "', '" .$element['facebookUID']."'); ";
+        $query = sqlHelper($idSql, $element, $tableName);
         $result = @mysqli_query($link, $query);
     }
 
@@ -26,10 +41,16 @@ function writeDbArray($link, $array, $tableName)
 function createTable($tableName)
 {
     $slink = connectDb();
-    $tquery = @mysqli_query($slink, "SELECT COUNT(*) FROM `useid`.`" . $tableName . "`");
-    if (!$tquery) {
+    $tquery = @mysqli_query($slink, "SELECT COUNT(*) FROM `".MYSQL_DB."`.`" . $tableName . "`");
+    if(!$tquery) {
         $query = "CREATE TABLE `".MYSQL_DB."`.`" . $tableName . "` ( `id` INT NOT NULL AUTO_INCREMENT , `loginUser` TEXT NULL DEFAULT NULL , `userName` TEXT NULL DEFAULT NULL , `fotoLink` TEXT NULL DEFAULT NULL , `instagramLink` TEXT NULL DEFAULT NULL , `facebookLink` TEXT NULL DEFAULT NULL , `facebookUID` TEXT NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB";
         $result = mysqli_query($slink, $query);
+    }
+    $tquery = @mysqli_query($slink, "SELECT COUNT(*) FROM `".MYSQL_DB."`.`" . $tableName ."_followersFb`");
+    if(!$tquery)
+    {
+        $query = "CREATE TABLE `".MYSQL_DB."`.`".$tableName."_followersFb` ( `url` TEXT NULL DEFAULT NULL , `ln` TEXT NULL DEFAULT NULL , `fn` TEXT NULL DEFAULT NULL , `phone` TEXT NULL DEFAULT NULL , `email` TEXT NULL DEFAULT NULL , `birthday` TEXT NULL DEFAULT NULL , `id` INT NOT NULL AUTO_INCREMENT , PRIMARY KEY (`id`)) ENGINE = InnoDB";
+        mysqli_query($slink, $query);
     }
     return $result;
 }
@@ -40,41 +61,4 @@ function readDb($column, $tableName, $slink)
     $result = mysqli_query($slink, $query);
     $feedbeck = mysqli_fetch_all($result);
     return $feedbeck;
-}
-
-function createTxt($tableName)
-{
-    $name = preg_replace('/[^ a-zа-яё\d]/ui', '_',$tableName );
-    $name .= '.txt';
-    $feedbeck = [];
-
-    $link = connectDb();
-    $feedbeck = readDb('facebookUID', $tableName, $link);
-
-    if(!empty($feedbeck)){
-        $id_file = file_open($name);
-        writeTxt($feedbeck, $id_file);
-        fclose($id_file);
-    }
-}
-
-function writeTxt($feedbeck, $id_file)
-{
-    foreach($feedbeck as $key => $element) {
-        if(!empty($element[0])) {
-            fwrite($id_file, iconv('UTF-8', 'Windows-1251', $element[0]) . "\n");
-        }
-    }
-}
-
-function file_open($name)
-{
-    $id_file = fopen($name, 'a+t'); //Проверяет есть ли такой файл
-
-    if($id_file == false)
-    {
-        $id_file = fopen($name, 'wt');  //Создаёт новый, если его нет
-    }
-
-    return $id_file;
 }
