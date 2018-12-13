@@ -32,7 +32,7 @@ if ($createNewTable === true) {
 }
 
 $arrayResult = [];
-$shiftArray = 0; //добавил
+$shiftArray = 0; 
 
 if ($continueScrolling === false) {
     // Задаем хост на котором запущен Selenium (localhost - если же на этом компьютере) и номер порта (4444 - порт по умолчанию, если мы не задали другой)
@@ -68,9 +68,7 @@ if ($continueScrolling === false) {
 } else {
     $driver = RemoteWebDriver::createBySessionID($SessionID, 'http://localhost:4444/wd/hub');
 }
-///
-///$driver->manage()->timeouts()->pageLoadTimeout(10000);
-//$driver->manage()->timeouts()->implicitlyWait(0);
+
 $handles = [];
 $timeHis = 0;
 $handles = $driver->getWindowHandles();                //получаем список вкладок
@@ -145,11 +143,9 @@ function workWithHtml()
         $parseArr[$i]['instagramLink'] = $urlInstagram . $loginUser;
         $i++;
     }
-    //добавить запись в бд сюда
     $link = connectDb();
     writeDbArray(1, $link, $parseArr, $userURL, $shiftArray);
     $shiftArray = $i + 1;
-    //if($shiftArray >= count($parseArr)) $shiftArray = count($parseArr) - 1;
 }
 
 function getFbInfo($shiftArray, $handles, $fromMs, $toMs)
@@ -158,7 +154,6 @@ function getFbInfo($shiftArray, $handles, $fromMs, $toMs)
     global $urlFacebook;
     global $urlInstagram;
     global $userURL;
-    //global $timeHis;
     global $parseArr;
     global $betweenWriting;
     global $arrayResult;
