@@ -1,7 +1,6 @@
 <?php
 // Указываем пространство имен
 namespace Facebook\WebDriver;
-
 // Указываем какие классы будут использоватся
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
@@ -9,31 +8,25 @@ use Facebook\WebDriver\Chrome\ChromeOptions;
 use LimitIterator;
 use ArrayIterator;
 use Exception;
-
 //Пподключаем автолоадер классов
 set_time_limit(0);
 ini_set('memory_limit', '-1');
 ini_set('max_execution_time', 0);
 //ini_set('display_errors', 0);
 //ini_set('error_reporting', 0);
-
 error_reporting(E_ALL & ~E_NOTICE);
 require_once('autoload.php');
 include "input.php";
 include "write_db.php";
 //include "maskRU.php";
 include "maskWorld.php";
-
 $urlFacebook = 'https://www.facebook.com/';
 $urlInstagram = 'https://www.instagram.com/';
-
 if ($createNewTable === true) {
     createTable($userURL);
 }
-
 $arrayResult = [];
 $shiftArray = 0; 
-
 if ($continueScrolling === false) {
     // Задаем хост на котором запущен Selenium (localhost - если же на этом компьютере) и номер порта (4444 - порт по умолчанию, если мы не задали другой)
     $host = 'http://localhost:4444/wd/hub';
@@ -58,17 +51,14 @@ if ($continueScrolling === false) {
     $SessionID = $driver->getSessionID();
     echo $SessionID;
     echo '<br/>'; echo '<br/>';
-
     $element = $driver->findElements(WebDriverBy::tagName("li"));
     $element[1]->click();                                   //нажимаем на подписчиков
     sleep(3);
-
     $i = 0;
     $driver->executeScript('window.open(arguments[0])');   //открываем js новую вкладку
 } else {
     $driver = RemoteWebDriver::createBySessionID($SessionID, 'http://localhost:4444/wd/hub');
 }
-
 $handles = [];
 $timeHis = 0;
 $handles = $driver->getWindowHandles();                //получаем список вкладок
@@ -84,7 +74,6 @@ while (true) {
         }
         $timeHis = time();
     }
-
     try {
         $element = $driver->findElement(WebDriverBy::className("oMwYe"));
         $element->getLocationOnScreenOnceScrolledIntoView();
@@ -102,7 +91,6 @@ workWithHtml();
 getFbInfo($shiftArray, $handles, $fromMs, $toMs);
 printResult($arrayResult);
 //createTxt($userURL); //исправить
-
 function workWithHtml()
 {
     global $driver;
@@ -110,33 +98,27 @@ function workWithHtml()
     global $urlInstagram;
     global $userURL;
     global $shiftArray;
-
     //____________________ Получаем и изучаем итоговую html _____________________
     $html = @$driver->getPageSource();                       //получаем код страницы
     preg_match_all('/(<)(li)( )(class)(=)("wo9IH")(>).*?(<\/li>)/', $html, $match);
     $match = $match[0];                                     //Получаем массив с подписчиками
     $i = 0;
     $parseArr = [];
-
     foreach ($match as $key => $element) {
         preg_match('/(src)(=)(").*?(")( )(alt)/', $element, $match1);
         preg_match('/(href)(=)(").*?(")(>)/', $element, $match2);
         preg_match('/(")(wFPL8)( )(")(>).*?(<)(\/div)/', $element, $match3);
-
         $foto = str_ireplace('src="', '', $match1[0]);
         $foto = str_ireplace('" alt', '', $foto);
-
         $loginUser = str_ireplace('href="/', '', $match2[0]);
         $loginUser = str_ireplace('/" style="width: 30px; height: 30px;">', '', $loginUser);
         $loginUser = str_ireplace('/">', '', $loginUser);
-
         $name = str_ireplace('"wFPL8 ">', '', $match3[0]);
         $name = @json_encode($name);
         $name = str_ireplace("<\/div", '', $name);
         $name = @json_decode($name, true); //перенести эту строку
         $name = preg_replace('/[^ a-zа-яё\d]/ui', '', $name);
         //$name = str_ireplace("'",'',$name); explode('>', $html);
-
         $parseArr[$i]['loginUser'] = $loginUser;
         $parseArr[$i]['userName'] = $name;
         $parseArr[$i]['fotoLink'] = $foto;
@@ -147,7 +129,6 @@ function workWithHtml()
     writeDbArray(1, $link, $parseArr, $userURL, $shiftArray);
     $shiftArray = $i + 1;
 }
-
 function getFbInfo($shiftArray, $handles, $fromMs, $toMs)
 {
     global $driver;
@@ -157,14 +138,12 @@ function getFbInfo($shiftArray, $handles, $fromMs, $toMs)
     global $parseArr;
     global $betweenWriting;
     global $arrayResult;
-
     $urlGetFacebook = 'https://m.facebook.com/';
     $newTab = $handles[1];
     $mainTab = $handles[0];
     $shiftArray = 0;
     $shift = 0;
     //____________________________________________________________________________
-
     $driver->switchTo()->window($newTab);  //переключаемся на новую вкладку
     $Arr = new LimitIterator(new ArrayIterator($parseArr), $shiftArray);
     //$testString = '';
@@ -173,18 +152,13 @@ function getFbInfo($shiftArray, $handles, $fromMs, $toMs)
             $explodeName = explode(" ", $element['userName']);
             $ln = $explodeName[0];
             $fn = $explodeName[1];
-
             if(!Empty($ln) && !Empty($fn) && strlen($ln) > 0 && strlen($ln) > 0) {
                 $driver->get($urlFacebook . 'search/str/'.$ln.'+'.$fn.'/keywords_users?epa=SEE_MORE');
-
                 $sleep = rand($fromMs, $toMs); //случайная пауза между переходами по страницам
                 usleep($sleep);
-
                 $elements = $driver->getPageSource();
                 $resultArr = getFindPioples($elements); //добавить функцию которая сравнивает имена
-
                 $texeErr = 'Запрашиваемая вами страница недоступна';
-
                 foreach($resultArr as $key2 => $element2)
                 {
                     if(((mb_strtolower($element2['ln']) == mb_strtolower($ln) && mb_strtolower($element2['fn']) == mb_strtolower($fn)) ||
@@ -205,9 +179,7 @@ function getFbInfo($shiftArray, $handles, $fromMs, $toMs)
                         $htmlFb   = $driver->getPageSource();
                         $ArrHtml  = getArrHtml($htmlFb);
                         $digital  = getOnlyDigital($ArrHtml, 9, 15);
-
                         $birthday =
-
                         //подумать над массивом
                         $arrayResult[$shift]['url'] = $resultUrl;
                         $arrayResult[$shift]['ln'] = $element2['ln'];
@@ -231,7 +203,6 @@ function getFbInfo($shiftArray, $handles, $fromMs, $toMs)
         }
     }
 }
-
 function loginInstagram($loginInstagram, $passInstagram)
 {
     global $driver;
@@ -247,7 +218,6 @@ function loginInstagram($loginInstagram, $passInstagram)
     }
     $driver->findElement(WebDriverBy::className('L3NKy'))->click();
 }
-
 function loginFb($loginFacebook, $passFacebook)
 {
     global $driver;
@@ -258,7 +228,6 @@ function loginFb($loginFacebook, $passFacebook)
     $driver->findElement(WebDriverBy::id('pass'))->sendKeys($passFacebook);
     $driver->findElement(WebDriverBy::id('loginbutton'))->click();
 }
-
 function getUID($html, $key)
 {
     preg_match_all('/(meta)( )(property).*?(>)/is', $html, $match4);
@@ -266,13 +235,11 @@ function getUID($html, $key)
         $parseArr[$key]['facebookUID'] = preg_replace("/[^,.0-9]/", '', $match4[0][2]);
     }
 }
-
 function getArrHtml($html)
 {
     $Arr = explode('>', $html);
     return $Arr;
 }
-
 function getOnlyDigital($Arr, $shortNumber, $longNumber)
 {
     $i = 0;
@@ -294,10 +261,44 @@ function getOnlyDigital($Arr, $shortNumber, $longNumber)
             $i++;
         }
     }
-
     return $arrValidateNumber;
 }
-
+function validateNumber($value)
+{
+    $result = false;
+    //$maskRU = maskRU();
+    $maskWorld = maskWorld();
+    $masks = $maskWorld; //array_merge($maskRU , $maskWorld);
+    foreach($masks as $key => $element) {
+        if(stristr($value, $element['mask'], 0)  !== false ||
+            stristr(substr($value, 0, 2),'89', 0) !== false) {
+            $result = true;
+            break;
+        }
+    }
+    return $result;
+}
+function getFindPioples($html)
+{
+    $i = 0;
+    $arrResult = [];
+    preg_match_all("/(_)(3)(2)(mo).*?(a)(>)/is", $html, $matches);
+    foreach($matches[0] as $key => $element){
+        $result = str_replace('</span></a>', '', $element);
+        $result = str_replace('_32mo" href="', '', $result);
+        $result = str_replace('https://www.facebook.com/', '', $result);
+        $result = str_replace('profile.php', '', $result);
+        $arrResult[$i]['url'] = stristr($result, '?', true);
+        $result = stristr($result, '>');
+        $result = str_replace('<span>', '', $result);
+        $result = str_replace('>', '', $result);
+        $arrName = explode(' ', $result);
+        $arrResult[$i]['ln'] = $arrName[0];
+        $arrResult[$i]['fn'] = $arrName[1];
+        $i++;
+    }
+    return $arrResult;
+}
 function getBirthday($html)
 {
     preg_match_all('/(<)(div)( )(class).*?(div)(>)/is', $html, $match);
@@ -323,45 +324,6 @@ function getBirthday($html)
     }
     return '';
 }
-
-function getFindPioples($html)
-{
-    $i = 0;
-    $arrResult = [];
-    preg_match_all("/(_)(3)(2)(mo).*?(a)(>)/is", $html, $matches);
-    foreach($matches[0] as $key => $element){
-        $result = str_replace('</span></a>', '', $element);
-        $result = str_replace('_32mo" href="', '', $result);
-        $result = str_replace('https://www.facebook.com/', '', $result);
-        $result = str_replace('profile.php', '', $result);
-        $arrResult[$i]['url'] = stristr($result, '?', true);
-        $result = stristr($result, '>');
-        $result = str_replace('<span>', '', $result);
-        $result = str_replace('>', '', $result);
-        $arrName = explode(' ', $result);
-        $arrResult[$i]['ln'] = $arrName[0];
-        $arrResult[$i]['fn'] = $arrName[1];
-        $i++;
-    }
-    return $arrResult;
-}
-
-function getBirthday($html)
-{
-    preg_match_all('/(<)(div)( )(class).*?(div)(>)/is', $html, $match);
-    $month = ['январ', 'феврал', 'март', 'апрел', 'мая', 'июн', 'июл', 'август', 'сентябр', 'октябр', 'ноябр', 'декабр'];
-    foreach($match[0] as $key => $element){
-        foreach($month as $key2 => $element2){
-            if(stristr(mb_strtolower($element), mb_strtolower($element2), 0) !== false) { //!
-                $result = explode(' ', $element);
-                $result = preg_replace('/[^0-9]/', '', $result[1]).'/'.($key2 + 1).'/'.preg_replace('/[^0-9]/', '', $result[3]);
-                return $result;
-            }
-        }
-    }
-    return false;
-}
-
 function getMail($html)
 {
     preg_match_all('/(mailto)(:).*?(")(>)/is', $html, $matches);
@@ -373,7 +335,6 @@ function getMail($html)
     $result = urldecode($result);
     return $result;
 }
-
 function printResult($arr)
 {
     $htmlPrint = 'fn,ln,dob,phone,email'.'<br/>'; $birthday = ''; $phone = ''; $email = '';
