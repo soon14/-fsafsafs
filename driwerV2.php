@@ -298,20 +298,30 @@ function getOnlyDigital($Arr, $shortNumber, $longNumber)
     return $arrValidateNumber;
 }
 
-function validateNumber($value)
+function getBirthday($html)
 {
-    $result = false;
-    //$maskRU = maskRU();
-    $maskWorld = maskWorld();
-    $masks = $maskWorld; //array_merge($maskRU , $maskWorld);
-    foreach($masks as $key => $element) {
-        if(stristr($value, $element['mask'], 0)  !== false ||
-            stristr(substr($value, 0, 2),'89', 0) !== false) {
-            $result = true;
-            break;
+    preg_match_all('/(<)(div)( )(class).*?(div)(>)/is', $html, $match);
+    $month = ['январ', 'феврал', 'март', 'апрел', 'мая', 'июн', 'июл', 'август', 'сентябр', 'октябр', 'ноябр', 'декабр'];
+    foreach($match[0] as $key => $element){
+        foreach($month as $key2 => $element2){
+            if(stristr(mb_strtolower($element), mb_strtolower($element2), 0) !== false) { 
+                $resultArr = explode(' ', $element);
+                foreach($resultArr as $key3 => $element3){
+                    if(stristr(mb_strtolower($element3), mb_strtolower($element2), 0) !== false) {
+                        if(count($resultArr) > $key3 + 1) {
+                            $result = preg_replace('/[^0-9]/', '',$resultArr[$key3 - 1]) . '/' . ($key2 + 1) . '/' . preg_replace('/[^0-9]/', '',$resultArr[$key3 + 1]);
+                            return $result;
+                        }
+                        else{
+                            $result = preg_replace('/[^0-9]/','', $resultArr[$key3 - 1]) . '/' . ($key2 + 1). '/';
+                            return $result;
+                        } 
+                    }
+                }
+            }
         }
     }
-    return $result;
+    return '';
 }
 
 function getFindPioples($html)
