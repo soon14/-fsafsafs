@@ -6,7 +6,7 @@
     $loginFacebook  = $_POST['facebook_login'];
     $passFacebook   = $_POST['facebook_password'];
 
-    $createNewTable = false;
+    $createNewTable = true;
     $betweenWriting = 300;   //сколько секунд крутим список до записи 
     $totalExceptions = 1000; //количество исключений после которого стоп прокрутка
     $continueScrolling = false;
