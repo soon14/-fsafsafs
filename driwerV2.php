@@ -180,7 +180,6 @@ function getFbInfo($shiftArray, $handles, $fromMs, $toMs)
                         $ArrHtml  = getArrHtml($htmlFb);
                         $digital  = getOnlyDigital($ArrHtml, 9, 15);
                         
-                        //подумать над массивом
                         $arrayResult[$shift]['url'] = $resultUrl;
                         $arrayResult[$shift]['ln'] = $element2['ln'];
                         $arrayResult[$shift]['fn'] = $element2['fn'];
