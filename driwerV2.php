@@ -179,7 +179,7 @@ function getFbInfo($shiftArray, $handles, $fromMs, $toMs)
                         $htmlFb   = $driver->getPageSource();
                         $ArrHtml  = getArrHtml($htmlFb);
                         $digital  = getOnlyDigital($ArrHtml, 9, 15);
-                        $birthday =
+                        
                         //подумать над массивом
                         $arrayResult[$shift]['url'] = $resultUrl;
                         $arrayResult[$shift]['ln'] = $element2['ln'];
