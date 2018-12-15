@@ -191,7 +191,7 @@ function getFbInfo($shiftArray, $handles, $fromMs, $toMs)
                             if ($timeHis > 0) {
                                 //передическая запись в бд
                                 $link = connectDb();
-                                writeDbArray(2, $link, $arrayResult, $userURL.'_followersfb', $shiftArray);
+                                writeDbArray(2, $link, $arrayResult, $userURL.'followersfb', $shiftArray);
                                 $shiftArray = $shift + 1;
                             }
                             $timeHis = time();
