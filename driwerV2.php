@@ -339,6 +339,7 @@ function printResult($arr)
     $htmlPrint = 'fn,ln,dob,phone,email'.'<br/>'; $birthday = ''; $phone = ''; $email = '';
     foreach($arr as $key => $element)
     {
+        $email = ''; $phone = ''; $birthday = '';
         if(strlen($element['email']) > 0 || strlen($element['phone']) > 0 || strlen($element['birthday']) > 6)
         {
             if(strlen($element['email']) > 0)
