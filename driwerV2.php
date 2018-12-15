@@ -167,8 +167,8 @@ function getFbInfo($shiftArray, $handles, $fromMs, $toMs)
                     {
                         $resultUrl = $urlGetFacebook.$element2['url'].'/about?section=contact-info';
                         $driver->get($resultUrl);
-                        $sleep = rand($fromMs, $toMs); //случайная пауза между переходами по страницам
-                        usleep($sleep);
+                        //$sleep = rand($fromMs, $toMs); //случайная пауза между переходами по страницам
+                        //usleep($sleep);
                         $htmlFb = $driver->getPageSource();
                         if (!empty($htmlFb) && stristr($htmlFb, $texeErr, 0) !== false) {
                             $resultUrl = 'https://www.facebook.com/'.$element2['url'].'/about?section=contact-info';
