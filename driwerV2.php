@@ -336,7 +336,7 @@ function getMail($html)
 }
 function printResult($arr)
 {
-    $htmlPrint = 'fn,ln,dob,phone,email'.'<br/>'; $birthday = ''; $phone = ''; $email = '';
+    $htmlPrint = 'fn,ln,dob,phone,email'.'<br/>'; 
     foreach($arr as $key => $element)
     {
         $email = ''; $phone = ''; $birthday = '';
