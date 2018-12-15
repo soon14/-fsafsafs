@@ -41,15 +41,15 @@ function writeDbArray($idSql, $link, $array, $tableName, $shiftArray)
 function createTable($tableName)
 {
     $slink = connectDb();
-    $tquery = @mysqli_query($slink, "SELECT COUNT(*) FROM `".MYSQL_DB."`.`" . $tableName . "`");
+    $tquery = mysqli_query($slink, "SELECT COUNT(*) FROM `".MYSQL_DB."`.`" . $tableName . "`");
     if(!$tquery) {
         $query = "CREATE TABLE `".MYSQL_DB."`.`" . $tableName . "` ( `id` INT NOT NULL AUTO_INCREMENT , `loginUser` TEXT NULL DEFAULT NULL , `userName` TEXT NULL DEFAULT NULL , `fotoLink` TEXT NULL DEFAULT NULL , `instagramLink` TEXT NULL DEFAULT NULL , `facebookLink` TEXT NULL DEFAULT NULL , `facebookUID` TEXT NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB";
         $result = mysqli_query($slink, $query);
     }
-    $tquery = @mysqli_query($slink, "SELECT COUNT(*) FROM `".MYSQL_DB."`.`" . $tableName ."_followersFb`");
+    $tquery = mysqli_query($slink, "SELECT COUNT(*) FROM `".MYSQL_DB."`.`" . $tableName ."followersFb`");
     if(!$tquery)
     {
-        $query = "CREATE TABLE `".MYSQL_DB."`.`".$tableName."_followersFb` ( `url` TEXT NULL DEFAULT NULL , `ln` TEXT NULL DEFAULT NULL , `fn` TEXT NULL DEFAULT NULL , `phone` TEXT NULL DEFAULT NULL , `email` TEXT NULL DEFAULT NULL , `birthday` TEXT NULL DEFAULT NULL , `id` INT NOT NULL AUTO_INCREMENT , PRIMARY KEY (`id`)) ENGINE = InnoDB";
+        $query = "CREATE TABLE `".MYSQL_DB."`.`".$tableName."followersFb` ( `url` TEXT NULL DEFAULT NULL , `ln` TEXT NULL DEFAULT NULL , `fn` TEXT NULL DEFAULT NULL , `phone` TEXT NULL DEFAULT NULL , `email` TEXT NULL DEFAULT NULL , `birthday` TEXT NULL DEFAULT NULL , `id` INT NOT NULL AUTO_INCREMENT , PRIMARY KEY (`id`)) ENGINE = InnoDB";
         mysqli_query($slink, $query);
     }
     return $result;
