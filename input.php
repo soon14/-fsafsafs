@@ -11,5 +11,5 @@
     $totalExceptions = 1000; //количество исключений после которого стоп прокрутка
     $continueScrolling = false;
     $shiftArray    = 0;
-    $fromMs        = 2000000;
-    $toMs          = 3000000;
+    $fromMs        = 3000000;
+    $toMs          = 4000000;
