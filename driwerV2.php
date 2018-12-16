@@ -157,7 +157,7 @@ function getFbInfo($shiftArray, $handles, $fromMs, $toMs)
                 $sleep = rand($fromMs, $toMs); //случайная пауза между переходами по страницам
                 usleep($sleep);
                 $elements = $driver->getPageSource();
-                $resultArr = getFindPioples($elements); //добавить функцию которая сравнивает имена
+                $resultArr = getFindPioples($elements); 
                 $texeErr = 'Запрашиваемая вами страница недоступна';
                 foreach($resultArr as $key2 => $element2)
                 {
