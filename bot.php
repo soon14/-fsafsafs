@@ -21,7 +21,7 @@ include "write_db.php";
 include "parsing.php";
 
 // Задаем хост на котором запущен Selenium (localhost - если же на этом компьютере) и номер порта (4444 - порт по умолчанию, если мы не задали другой)
-/*$host = 'http://localhost:4444/wd/hub';
+$host = 'http://localhost:4444/wd/hub';
 $chromeOptions = new ChromeOptions();
 $chromeOptions->addExtensions(['Block-image_v1.1.crx']); //плагин блокирующий загрузку изображений
 $chromeOptions->addArguments(['--no-sandbox']);
@@ -33,18 +33,6 @@ $desired_capabilities->setVersion("70.0");
 $desired_capabilities->setCapability("binary","/usr/bin/chrome");
 $driver = RemoteWebDriver::create($host, $desired_capabilities);
 $driver->manage()->window()->setSize(new WebDriverDimension(1280, 1024));
-*/
-$host = 'http://localhost:4444/wd/hub';
-$chromeOptions = new ChromeOptions();
-$arguments = ["--user-agent=Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)"];
-
-$chromeOptions->addArguments($arguments);
-$chromeOptions->addExtensions(['Block-image_v1.1.crx']); //плагин блокирующий загрузку изображений
-$chromeOptions->addArguments(['--no-sandbox']);
-
-$desired_capabilities = DesiredCapabilities::chrome();
-$desired_capabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
-$driver = RemoteWebDriver::create($host, $desired_capabilities, 1000000000, 1000000000);
 
 if (!empty($_POST['login']) && !empty($_POST['password'])) { //если введены данные фейсбука
     loginFb($_POST['login'], $_POST['password']);
