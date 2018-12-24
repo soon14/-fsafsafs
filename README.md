@@ -1,3 +1,5 @@
+В файле input.php в переменной $localRepository нужно указать локальный адрес проекта, например:'http://localhost/parser/';
+
 Для того что бы поставить selenoid нам потребуются следующие команды:
 
 wget -O cm https://github.com/aerokube/cm/releases/download/1.5.5/cm_linux_amd64
