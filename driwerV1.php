@@ -28,7 +28,7 @@ if($createNewTable === true) {
     createTable(tableName($userURL));
 }
 if($_POST['Checkbox1'] == 1) {
-    printFromBase($userURL);
+    printFromBase($userURL); exit();
 }
 $arrayResult = [];
 $shiftArray = 0;
