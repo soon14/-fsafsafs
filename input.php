@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
     $userURL        = $_POST['instagram_addres'];
     $loginInstagram = $_POST['instagram_login'];
@@ -7,9 +7,10 @@
     $passFacebook   = $_POST['facebook_password'];
 
     $createNewTable = true;
-    $betweenWriting = 300;   //сколько секунд крутим список до записи 
+    $betweenWriting = 300;  //сколько секунд крутим до следующей записи 600 defolt
     $totalExceptions = 1000; //количество исключений после которого стоп прокрутка
     $continueScrolling = false;
-    $shiftArray    = 0;
-    $fromMs        = 3000000;
-    $toMs          = 4000000;
+    $indexWrite = 0;        //стартовый индекс для записи в бд
+    $fromMs        = 30500000;
+    $toMs          = 33000000;
+    $localRepository = 'http://localhost/NewNewFix/';
