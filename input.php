@@ -13,4 +13,4 @@
     $indexWrite = 0;        //стартовый индекс для записи в бд
     $fromMs        = 30500000;
     $toMs          = 33000000;
-    $localRepository = 'http://localhost/NewNewFix/';
+    $localRepository = 'https://selenoid.useid.pro/';
