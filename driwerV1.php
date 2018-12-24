@@ -17,19 +17,24 @@ ini_set('max_execution_time', 0);
 error_reporting(E_ALL & ~E_NOTICE);
 require_once('autoload.php');
 include "input.php";
+include "parsing.php";
 include "write_db.php";
-//include "maskRU.php";
-include "maskWorld.php";
+
 $urlFacebook = 'https://www.facebook.com/';
 $urlInstagram = 'https://www.instagram.com/';
-if ($createNewTable === true) {
-    createTable($userURL);
+
+
+if($createNewTable === true) {
+    createTable(tableName($userURL));
+}
+if($_POST['Checkbox1'] == 1) {
+    printFromBase($userURL);
 }
 $arrayResult = [];
 $shiftArray = 0;
 if ($continueScrolling === false) {
     // Задаем хост на котором запущен Selenium (localhost - если же на этом компьютере) и номер порта (4444 - порт по умолчанию, если мы не задали другой)
-    /*$host = 'http://localhost:4444/wd/hub';
+    $host = 'http://localhost:4444/wd/hub';
     $chromeOptions = new ChromeOptions();
     $chromeOptions->addExtensions(['Block-image_v1.1.crx']); //плагин блокирующий загрузку изображений
     $chromeOptions->addArguments(['--no-sandbox']);
@@ -41,18 +46,6 @@ if ($continueScrolling === false) {
     $desired_capabilities->setCapability("binary","/usr/bin/chrome");
     $driver = RemoteWebDriver::create($host, $desired_capabilities);
     $driver->manage()->window()->setSize(new WebDriverDimension(1280, 1024));
-*/
-    $host = 'http://localhost:4444/wd/hub';
-    $chromeOptions = new ChromeOptions();
-    $arguments = ["--user-agent=Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)"];
-
-    $chromeOptions->addArguments($arguments);
-    $chromeOptions->addExtensions(['Block-image_v1.1.crx']); //плагин блокирующий загрузку изображений
-    $chromeOptions->addArguments(['--no-sandbox']);
-
-    $desired_capabilities = DesiredCapabilities::chrome();
-    $desired_capabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
-    $driver = RemoteWebDriver::create($host, $desired_capabilities, 1000000000, 1000000000);
 
     if (!empty($loginFacebook) && !empty($passFacebook)) { //если введены данные фейсбука
         loginFb($loginFacebook, $passFacebook);
@@ -62,7 +55,7 @@ if ($continueScrolling === false) {
     @$driver->get($userURL);                                 //загружаем страницу инстаграм
     $SessionID = $driver->getSessionID();
     echo $SessionID;
-    echo '<br/>'; echo '<br/>';
+    echo '<br/>';
     $element = $driver->findElements(WebDriverBy::tagName("li"));
     $element[1]->click();                                   //нажимаем на подписчиков
     sleep(3);
@@ -89,10 +82,9 @@ while (true) {
     try {
         $element = $driver->findElement(WebDriverBy::className("oMwYe"));
         $element->getLocationOnScreenOnceScrolledIntoView();
-        sleep(4);
+        sleep(5);
         $i = 0;
     } catch (Exception $e) {
-        //$flagfind = false;
         if ($i >= $totalExceptions) {
             break;
         }
@@ -100,8 +92,13 @@ while (true) {
     }
 }
 workWithHtml();
-getFbInfo($shiftArray, $handles, $fromMs, $toMs);
-printResult($arrayResult);
+$driver->switchTo()->window($newTab);  //переключаемся на новую вкладку
+
+
+getFbInfo($handles, $fromMs, $toMs);
+$countRecords = countRecords('instagram'.tableName($userURL)); echo $countRecords; echo '<br/>'; echo '<br/>';
+printResult($arrayResult, true);
+startBots($parseArr, $localRepository);
 
 function workWithHtml()
 {
@@ -138,10 +135,10 @@ function workWithHtml()
         $i++;
     }
     $link = connectDb();
-    writeDbArray(1, $link, $parseArr, $userURL, $shiftArray);
+    writeDbArray(1, $link, $parseArr, 'instagram'.tableName($userURL), $shiftArray);
     $shiftArray = $i + 1;
 }
-function getFbInfo($shiftArray, $handles, $fromMs, $toMs)
+function getFbInfo($handles, $fromMs, $toMs)
 {
     global $driver;
     global $urlFacebook;
@@ -150,42 +147,49 @@ function getFbInfo($shiftArray, $handles, $fromMs, $toMs)
     global $parseArr;
     global $betweenWriting;
     global $arrayResult;
+    global $countRecords;
     $urlGetFacebook = 'https://m.facebook.com/';
-    $newTab = $handles[1];
-    $mainTab = $handles[0];
+    //$newTab = $handles[1];
+    //$mainTab = $handles[0];
     $shiftArray = 0;
     $shift = 0;
     $noPage = 'Страница';
     $noPage2 = 'Содержание';
+    $noPage3 = 'Facebook';
     //____________________________________________________________________________
-    $driver->switchTo()->window($newTab);  //переключаемся на новую вкладку
+
     $Arr = new LimitIterator(new ArrayIterator($parseArr), $shiftArray);
     //$testString = '';
     if (count($parseArr) - $shiftArray > 1) {
         foreach ($Arr as $key => $element) {
-            $resultUrl = $urlGetFacebook . $element['loginUser'];
+            $resultUrl = $urlGetFacebook . $element['loginUser'].'/about?section=contact-info';
             $driver->get($resultUrl);
-            $sleep = rand($fromMs, $toMs); //случайная пауза между переходами по страницам
-            usleep($sleep);
+            //$sleep = rand($fromMs, $toMs); //случайная пауза между переходами по страницам
+            //usleep($sleep);
             $htmlFb = $driver->getPageSource();
             $lnfn = getLnFn($htmlFb);
 
-            if (!Empty($lnfn['ln']) && stristr($lnfn['ln'], $noPage, 0) !== false) {
-                $resultUrl = 'https://www.facebook.com/' . $element['loginUser'];
+            $arrNameInstagram = explode(' ', $element['userName']);
+            if (!Empty($lnfn['ln']) && stristr($lnfn['ln'], $noPage2, 0) !== false) {
+                $resultUrl = $urlGetFacebook . $element['loginUser'];
                 $driver->get($resultUrl);
-                $sleep = rand($fromMs, $toMs); //случайная пауза между переходами по страницам
-                usleep($sleep);
+                //$sleep = rand($fromMs, $toMs);
+                //usleep($sleep);
                 $htmlFb = $driver->getPageSource();
                 $lnfn = getLnFn($htmlFb);
             }
 
-            if (!Empty($lnfn['ln']) && stristr($lnfn['ln'], $noPage, 0) === false &&
-                !Empty($lnfn['ln']) && stristr($lnfn['ln'], $noPage2, 0) === false) {
+            if (!Empty($lnfn['lnfn']) &&
+               ((!Empty($arrNameInstagram[0]) && stristr(mb_strtolower($lnfn['lnfn']), mb_strtolower($arrNameInstagram[0]), 0) !== false) ||
+               (!Empty($arrNameInstagram[1]) && stristr(mb_strtolower($lnfn['lnfn']), mb_strtolower($arrNameInstagram[1]), 0) !== false))){
+
                 $ArrHtml = getArrHtml($htmlFb);
                 $digital = getOnlyDigital($ArrHtml, 9, 15);
                 $ArrName = getLnFn($htmlFb);
 
+
                 $arrayResult[$shift]['url'] = $resultUrl;
+                $parseArr[$key]['facebookLink'] = $resultUrl;
                 $arrayResult[$shift]['ln'] = $ArrName['ln'];
                 $arrayResult[$shift]['fn'] = $ArrName['fn'];
                 $arrayResult[$shift]['phone'] = $digital[0];
@@ -195,15 +199,16 @@ function getFbInfo($shiftArray, $handles, $fromMs, $toMs)
                 if (time() - $timeHis > $betweenWriting) {
                     if ($timeHis > 0) {
                         //передическая запись в бд
-                        $link = connectDb();
-                        writeDbArray(2, $link, $arrayResult, $userURL . 'followersfb', $shiftArray);
+                        $link = connectDb(); writeDbArray(2, $link, $arrayResult, 'facebook'.tableName($userURL), $shiftArray);
                         $shiftArray = $shift + 1;
                     }
                     $timeHis = time();
                 }
+
             }
         }
     }
+    $link = connectDb(); writeDbArray(2, $link, $arrayResult, 'facebook'.tableName($userURL), $shiftArray);
 }
 
 function loginInstagram($loginInstagram, $passInstagram)
@@ -231,105 +236,10 @@ function loginFb($loginFacebook, $passFacebook)
     $driver->findElement(WebDriverBy::id('pass'))->sendKeys($passFacebook);
     $driver->findElement(WebDriverBy::id('loginbutton'))->click();
 }
-function getUID($html, $key)
-{
-    preg_match_all('/(meta)( )(property).*?(>)/is', $html, $match4);
-    if (!empty($match4[0][2])) {
-        $parseArr[$key]['facebookUID'] = preg_replace("/[^,.0-9]/", '', $match4[0][2]);
-    }
-}
-function getArrHtml($html)
-{
-    $Arr = explode('>', $html);
-    return $Arr;
-}
-function getOnlyDigital($Arr, $shortNumber, $longNumber)
-{
-    $i = 0;
-    $resultArr = [];
-    foreach($Arr as $key => $element) {
-        $result = preg_replace('/[^+0-9]/', '', $element);
-        $result = str_replace('…', '', $result);
-        if(!Empty($result) && strlen($result) >= $shortNumber && strlen($result) <= $longNumber)
-        {
-            $resultArr[$i] = $result;
-            $i++;
-        }
-    }
-    $i = 0;
-    $arrValidateNumber = [];
-    foreach($resultArr as $key => $element) {
-        if(validateNumber($element)) {
-            $arrValidateNumber[$i] = $element;
-            $i++;
-        }
-    }
-    return $arrValidateNumber;
-}
-function validateNumber($value)
-{
-    $result = false;
-    //$maskRU = maskRU();
-    $maskWorld = maskWorld();
-    $masks = $maskWorld; //array_merge($maskRU , $maskWorld);
-    foreach($masks as $key => $element) {
-        if(stristr($value, $element['mask'], 0)  !== false ||
-            stristr(substr($value, 0, 2),'89', 0) !== false) {
-            $result = true;
-            break;
-        }
-    }
-    return $result;
-}
 
-function getBirthday($html)
+function printResult($arr, $printHat)
 {
-    preg_match_all('/(<)(div)( )(class).*?(div)(>)/is', $html, $match);
-    $month = ['январ', 'феврал', 'март', 'апрел', 'мая', 'июн', 'июл', 'август', 'сентябр', 'октябр', 'ноябр', 'декабр'];
-    foreach($match[0] as $key => $element){
-        foreach($month as $key2 => $element2){
-            if(stristr(mb_strtolower($element), mb_strtolower($element2), 0) !== false) {
-                $resultArr = explode(' ', $element);
-                foreach($resultArr as $key3 => $element3){
-                    if(stristr(mb_strtolower($element3), mb_strtolower($element2), 0) !== false) {
-                        if(count($resultArr) > $key3 + 1) {
-                            $result = preg_replace('/[^0-9]/', '',$resultArr[$key3 - 1]) . '/' . ($key2 + 1) . '/' . preg_replace('/[^0-9]/', '',$resultArr[$key3 + 1]);
-                            return $result;
-                        }
-                        else{
-                            $result = preg_replace('/[^0-9]/','', $resultArr[$key3 - 1]) . '/' . ($key2 + 1). '/';
-                            return $result;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    return '';
-}
-function getMail($html)
-{
-    preg_match_all('/(mailto)(:).*?(")(>)/is', $html, $matches);
-    $result = implode('',$matches[0]);
-    $result = stristr($result,':');
-    $result = stristr($result,'">',true);
-    $result = str_replace('"', '', $result);
-    $result = str_replace(':', '', $result);
-    $result = urldecode($result);
-    return $result;
-}
-function getLnFn($html)
-{
-    preg_match_all('/(title).*?(<)/is', $html, $matches);
-    $result = str_replace('<', '', $matches[0][0]);
-    $result = str_replace('title>', '', $result);
-    $result = str_replace('title id="pageTitle">','', $result);
-    $arrResult = explode(' ', $result);
-    return ['ln' => $arrResult[0], 'fn' => $arrResult[1]];
-}
-function printResult($arr)
-{
-    $htmlPrint = 'fn,ln,dob,phone,email'.'<br/>';
+    if($printHat === true) $htmlPrint = 'fn,ln,dob,phone,email'.'<br/>';
     foreach($arr as $key => $element)
     {
         $email = ''; $phone = ''; $birthday = '';
@@ -349,4 +259,48 @@ function printResult($arr)
         }
     }
     echo $htmlPrint;
+}
+function fetchData($url, $arr)
+{
+    $ch = curl_init($url.'bot.php');
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_USERAGENT, "User-Agent: Mozilla/4.0");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_TIMEOUT_MS, 2000);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($arr));
+    $result = curl_exec($ch);
+    //print_r(curl_getinfo($ch));
+    curl_close($ch);
+    return $result;
+}
+
+function printFromBase($URL)
+{
+    $slink = connectDb();
+    $arrRes = readDb('*', 'facebook'.tableName($URL), $slink);
+    printResult($arrRes, true);
+}
+function startBots($arr, $localRepository)
+{
+    $totalAccount = 0;
+    $auth = [];
+    $index = 0;
+    for($i = 2; $i <= 5; $i++){
+        if(!empty($_POST['facebook_login'.$i]) && !empty($_POST['facebook_password'.$i])){
+            $auth[$index]['login'] = $_POST['facebook_login'.$i];
+            $auth[$index]['password'] = $_POST['facebook_password'.$i];
+            $totalAccount++;
+            $index++;
+        }
+    }
+    if ($totalAccount > 0) {
+        $arrParts = array_chunk($arr, (count($arr) / $totalAccount));
+        for ($i = 0; $i < $totalAccount; $i++) {
+            $arrParts[$i]['login'] = $auth[$i]['login'];
+            $arrParts[$i]['password'] = $auth[$i]['password'];
+            fetchData($localRepository,$arrParts[$i]);
+        }
+    }
 }
