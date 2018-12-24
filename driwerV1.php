@@ -179,9 +179,9 @@ function getFbInfo($handles, $fromMs, $toMs)
                 $lnfn = getLnFn($htmlFb);
             }
 
-            if (!Empty($lnfn['lnfn']) &&
-               ((!Empty($arrNameInstagram[0]) && stristr(mb_strtolower($lnfn['lnfn']), mb_strtolower($arrNameInstagram[0]), 0) !== false) ||
-               (!Empty($arrNameInstagram[1]) && stristr(mb_strtolower($lnfn['lnfn']), mb_strtolower($arrNameInstagram[1]), 0) !== false))){
+            if (stristr($lnfn['ln'], $noPage, 0) === false &&
+                stristr($lnfn['ln'], $noPage2, 0) === false &&
+                stristr($lnfn['ln'], $noPage3, 0) === false){
 
                 $ArrHtml = getArrHtml($htmlFb);
                 $digital = getOnlyDigital($ArrHtml, 9, 15);
