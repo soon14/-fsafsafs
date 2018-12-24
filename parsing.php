@@ -113,6 +113,7 @@ function getMail($html)
     $result = str_replace('"', '', $result);
     $result = str_replace(':', '', $result);
     $result = urldecode($result);
+    if(count($result) > 50) return '';
     return $result;
 }
 function getLnFn($html)
