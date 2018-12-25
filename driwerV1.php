@@ -93,10 +93,8 @@ while (true) {
 }
 workWithHtml();
 $driver->switchTo()->window($newTab);  //переключаемся на новую вкладку
-
-
-getFbInfo($handles, $fromMs, $toMs);
 $countRecords = countRecords('instagram'.tableName($userURL)); echo $countRecords; echo '<br/>'; echo '<br/>';
+getFbInfo($handles, $fromMs, $toMs);
 printResult($arrayResult, true);
 startBots($parseArr, $localRepository);
 
