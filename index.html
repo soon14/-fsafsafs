@@ -3,24 +3,56 @@
 <head>
     <meta charset="utf-8">
     <title>Parser</title>
+	<style>
+	.help {
+	display: inline-block; 
+	position: absolute; 
+	padding: 10px 180px; 
+	}
+	.help:hover::after {
+	content: attr(data-title); 
+	position: absolute; 
+	left: 110px; right: 0; bottom: 30px;
+	z-index: 1;
+	background: rgba(255,255,230,1); 
+	font-family: Arial, sans-serif; 
+	font-size: 15px; 
 
+	border: 1px solid #333; 
+	}
+	.help2 {
+	display: inline-block; 
+	position: absolute; 
+
+	}
+	.help2:hover::after {
+	content: attr(data-title); 
+	position: absolute; 
+	left: -300px; right: 50; bottom: -500px;
+	z-index: 1;
+	background: rgba(255,255,230,1); 
+	font-family: Arial, sans-serif; 
+	font-size: 15px; 
+
+	border: 1px solid #333; 
+	}
+	</style>
     <link href="index.css" rel="stylesheet">
 </head>
 <body>
 
-<div id="wb_Image1" style="position:absolute;left:14px;top:14px;width:1372px;height:857px;z-index:12;">
-    <img src="images/fon.jpg" id="Image1" alt=""></div>
-<div id="wb_Form1" style="position:absolute;left:458px;top:244px;width:506px;height:518px;z-index:13;">
+
+<div id="wb_Form1" style="position:absolute;left:458px;top:124px;width:506px;height:590px;z-index:32;">
     <form name="tellafriend" method="post" action="driwerV1.php" enctype="multipart/form-data" id="Form2" target="_blank">
-        <label for="" id="Label6" style="position:absolute;left:11px;top:22px;width:122px;height:16px;line-height:16px;z-index:0;">instagram adres</label>
+        <label for="" id="Label6" style="position:absolute;left:11px;top:22px;width:122px;height:16px;line-height:16px;z-index:0;">инстаграм адрес *</label>
         <input type="text" id="Editbox8" style="position:absolute;left:151px;top:21px;width:308px;height:16px;z-index:1;" name="instagram_addres" value="" spellcheck="false">
-        <label for="" id="Label7" style="position:absolute;left:11px;top:51px;width:101px;height:16px;line-height:16px;z-index:2;">instagram login</label>
+        <label for="" id="Label7" style="position:absolute;left:11px;top:51px;width:101px;height:16px;line-height:16px;z-index:2;">наш инста лог *</label>
         <input type="text" id="Editbox10" style="position:absolute;left:151px;top:52px;width:308px;height:16px;z-index:3;" name="instagram_login" value="" spellcheck="false">
-        <label for="" id="Label8" style="position:absolute;left:11px;top:84px;width:122px;height:16px;line-height:16px;z-index:4;">instagram password</label>
+        <label for="" id="Label8" style="position:absolute;left:11px;top:84px;width:122px;height:16px;line-height:16px;z-index:4;">наш инста пасс *</label>
         <input type="password" id="Editbox11" style="position:absolute;left:151px;top:83px;width:308px;height:16px;z-index:5;" name="instagram_password" value="" spellcheck="false">
-        <label for="" id="Label9" style="position:absolute;left:11px;top:114px;width:122px;height:16px;line-height:16px;z-index:6;">facebook login</label>
+        <label for="" id="Label9" style="position:absolute;left:11px;top:114px;width:122px;height:16px;line-height:16px;z-index:6;">наш фб лог *</label>
         <input type="text" id="Editbox12" style="position:absolute;left:151px;top:114px;width:308px;height:16px;z-index:7;" name="facebook_login" value="" spellcheck="false">
-        <label for="" id="Label10" style="position:absolute;left:11px;top:145px;width:117px;height:16px;line-height:16px;z-index:9;">facebook password</label>
+        <label for="" id="Label10" style="position:absolute;left:11px;top:145px;width:117px;height:16px;line-height:16px;z-index:9;">наш фб пасс *</label>
         <input type="password" id="Editbox13" style="position:absolute;left:151px;top:145px;width:308px;height:16px;z-index:10;" name="facebook_password" value="" spellcheck="false">
         <input type="text" id="Editbox19" style="position:absolute;left:151px;top:179px;width:308px;height:16px;z-index:14;" name="facebook_login2" value="" spellcheck="false">
         <input type="password" id="Editbox18" style="position:absolute;left:151px;top:210px;width:308px;height:16px;z-index:13;" name="facebook_password2" value="" spellcheck="false">
@@ -30,22 +62,28 @@
         <input type="password" id="Editbox22" style="position:absolute;left:151px;top:338px;width:308px;height:16px;z-index:17;" name="facebook_password4" value="" spellcheck="false">
         <input type="text" id="Editbox21" style="position:absolute;left:151px;top:369px;width:308px;height:16px;z-index:16;" name="facebook_login5" value="" spellcheck="false">
         <input type="password" id="Editbox20" style="position:absolute;left:151px;top:400px;width:308px;height:16px;z-index:15;" name="facebook_password5" value="" spellcheck="false">
-        <label for="" id="Label11" style="position:absolute;left:11px;top:180px;width:122px;height:16px;line-height:16px;z-index:19;">facebook login</label>
-        <label for="" id="Label12" style="position:absolute;left:11px;top:242px;width:122px;height:16px;line-height:16px;z-index:20;">facebook login</label>
-        <label for="" id="Label13" style="position:absolute;left:11px;top:308px;width:122px;height:16px;line-height:16px;z-index:21;">facebook login</label>
-        <label for="" id="Label14" style="position:absolute;left:11px;top:370px;width:122px;height:16px;line-height:16px;z-index:22;">facebook login</label>
-        <label for="" id="Label15" style="position:absolute;left:11px;top:211px;width:117px;height:16px;line-height:16px;z-index:23;">facebook password</label>
-        <label for="" id="Label16" style="position:absolute;left:11px;top:274px;width:117px;height:16px;line-height:16px;z-index:24;">facebook password</label>
-        <label for="" id="Label17" style="position:absolute;left:11px;top:340px;width:117px;height:16px;line-height:16px;z-index:25;">facebook password</label>
-        <label for="" id="Label18" style="position:absolute;left:11px;top:401px;width:117px;height:16px;line-height:16px;z-index:26;">facebook password</label>
+        <label for="" id="Label11" style="position:absolute;left:11px;top:180px;width:122px;height:16px;line-height:16px;z-index:19;">наш фб лог</label>
+        <label for="" id="Label12" style="position:absolute;left:11px;top:242px;width:122px;height:16px;line-height:16px;z-index:20;">наш фб лог</label>
+        <label for="" id="Label13" style="position:absolute;left:11px;top:308px;width:122px;height:16px;line-height:16px;z-index:21;">наш фб лог</label>
+        <label for="" id="Label14" style="position:absolute;left:11px;top:370px;width:122px;height:16px;line-height:16px;z-index:22;">наш фб лог</label>
+        <label for="" id="Label15" style="position:absolute;left:11px;top:211px;width:117px;height:16px;line-height:16px;z-index:23;">наш фб пасс</label>
+        <label for="" id="Label16" style="position:absolute;left:11px;top:274px;width:117px;height:16px;line-height:16px;z-index:24;">наш фб пасс</label>
+        <label for="" id="Label17" style="position:absolute;left:11px;top:340px;width:117px;height:16px;line-height:16px;z-index:25;">наш фб пасс</label>
+        <label for="" id="Label18" style="position:absolute;left:11px;top:401px;width:117px;height:16px;line-height:16px;z-index:26;">наш фб пасс</label>
         <input type="submit" id="Button1" name="" value="Start" style="position:absolute;left:151px;top:446px;width:318px;height:34px;z-index:8;">
         <div id="wb_Checkbox1" style="position:absolute;left:53px;top:448px;width:40px;height:30px;z-index:27;">
             <input type="checkbox" id="Checkbox1" name="Checkbox1" value="1" style="position:absolute;left:0;top:0;"><label for="Checkbox1"></label></div>
         <div id="wb_Text1" style="position:absolute;left:11px;top:480px;width:130px;height:16px;z-index:28;">
-            <span style="color:#FFFFFF;font-family:Arial;font-size:13px;">Получить из базы</span></div>
+        <span style="color:#FFFFFF;font-family:Arial;font-size:13px;">Получить из базы</span></div>
+		<div class="help" data-title="В верхнее поле нужно вставить ссылку (целиком) на человека, подписчиков которого мы хотим парсить">
+		<label for="" id="Label6" style="position:absolute;left:477px;top:22px;width:12px;height:16px;line-height:16px;z-index:28;">?</label>
+		</div>
+		<div class="help2" data-title="Нажав start без галочки, мы запускаем набор алгоритмов, которые собирают ценную информацию, спустя некоторое время (возможно несколько часов) можно увидеть собраный результат на текущий момент. Для этого нужно: 1) в верхнее поле вставить точную ссылку которую мы парсили 2) поставить галочку 3) нажать старт">
+		<label for="" id="Label6" style="position:absolute;left:11px;top:451px;width:12px;height:16px;line-height:16px;z-index:30;">?</label>
+		</div>
+		<div id="wb_Text2" style="position:absolute;left:15px;top:503px;width:444px;height:80px;z-index:30;">
+<span style="color:#FFFFFF;font-family:Arial;font-size:13px;">* - поля обязательные для заполнения. От количества заполненных полей зависит скорость работы. Если заполнить все поля - скорость работы будет наибольшей. <br>? - информация которую нужно знать для работы (нужно навести мышь на знак вопроса)</span></div>
     </form>
 </div>
 </body>
 </html>
-
-
