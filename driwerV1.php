@@ -210,6 +210,7 @@ function printFromBase($URL)
 }
 function startBots($arr, $localRepository)
 {
+    global $userURL;
     $totalAccount = 0;
     $auth = [];
     $index = 0;
@@ -226,6 +227,7 @@ function startBots($arr, $localRepository)
         for ($i = 0; $i < $totalAccount; $i++) {
             $arrParts[$i]['login'] = $auth[$i]['login'];
             $arrParts[$i]['password'] = $auth[$i]['password'];
+	    $arrParts[$i]['instagram_addres'] = $userURL;
             fetchData($localRepository,$arrParts[$i]);
         }
     }
