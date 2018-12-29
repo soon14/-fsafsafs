@@ -46,7 +46,7 @@ if ($continueScrolling === false) {
     $desired_capabilities->setCapability("binary","/usr/bin/chrome");
     $driver = RemoteWebDriver::create($host, $desired_capabilities);
     $driver->manage()->window()->setSize(new WebDriverDimension(1280, 1024));
-
+	
     if (!empty($loginFacebook) && !empty($passFacebook)) { //если введены данные фейсбука
         loginFb($loginFacebook, $passFacebook);
     }
@@ -92,10 +92,9 @@ while (true) {
     }
 }
 workWithHtml();
-$driver->switchTo()->window($newTab);  //переключаемся на новую вкладку
+//$driver->switchTo()->window($newTab);  //переключаемся на новую вкладку
 $countRecords = countRecords('instagram'.tableName($userURL)); echo $countRecords; echo '<br/>'; echo '<br/>';
-getFbInfo($handles, $fromMs, $toMs);
-printResult($arrayResult, true);
+//printResult($arrayResult, true);
 startBots($parseArr, $localRepository);
 
 function workWithHtml()
@@ -136,78 +135,7 @@ function workWithHtml()
     writeDbArray(1, $link, $parseArr, 'instagram'.tableName($userURL), $shiftArray);
     $shiftArray = $i + 1;
 }
-function getFbInfo($handles, $fromMs, $toMs)
-{
-    global $driver;
-    global $urlFacebook;
-    global $urlInstagram;
-    global $userURL;
-    global $parseArr;
-    global $betweenWriting;
-    global $arrayResult;
-    global $countRecords;
-    $urlGetFacebook = 'https://m.facebook.com/';
-    //$newTab = $handles[1];
-    //$mainTab = $handles[0];
-    $shiftArray = 0;
-    $shift = 0;
-    $noPage = 'Страница';
-    $noPage2 = 'Содержание';
-    $noPage3 = 'Facebook';
-    //____________________________________________________________________________
 
-    $Arr = new LimitIterator(new ArrayIterator($parseArr), $shiftArray);
-    //$testString = '';
-    if (count($parseArr) - $shiftArray > 1) {
-        foreach ($Arr as $key => $element) {
-            $resultUrl = $urlGetFacebook . $element['loginUser'].'/about?section=contact-info';
-            $driver->get($resultUrl);
-            //$sleep = rand($fromMs, $toMs); //случайная пауза между переходами по страницам
-            //usleep($sleep);
-            $htmlFb = $driver->getPageSource();
-            $lnfn = getLnFn($htmlFb);
-
-            $arrNameInstagram = explode(' ', $element['userName']);
-            if (!Empty($lnfn['ln']) && stristr($lnfn['ln'], $noPage2, 0) !== false) {
-                $resultUrl = $urlGetFacebook . $element['loginUser'];
-                $driver->get($resultUrl);
-                //$sleep = rand($fromMs, $toMs);
-                //usleep($sleep);
-                $htmlFb = $driver->getPageSource();
-                $lnfn = getLnFn($htmlFb);
-            }
-
-            if (stristr($lnfn['ln'], $noPage, 0) === false &&
-                stristr($lnfn['ln'], $noPage2, 0) === false &&
-                stristr($lnfn['ln'], $noPage3, 0) === false){
-
-                $ArrHtml = getArrHtml($htmlFb);
-                $digital = getOnlyDigital($ArrHtml, 9, 15);
-                $ArrName = getLnFn($htmlFb);
-
-
-                $arrayResult[$shift]['url'] = $resultUrl;
-                $parseArr[$key]['facebookLink'] = $resultUrl;
-                $arrayResult[$shift]['ln'] = $ArrName['ln'];
-                $arrayResult[$shift]['fn'] = $ArrName['fn'];
-                $arrayResult[$shift]['phone'] = $digital[0];
-                $arrayResult[$shift]['email'] = getMail($htmlFb);
-                $arrayResult[$shift]['birthday'] = getBirthday($htmlFb);
-                $shift++;
-                if (time() - $timeHis > $betweenWriting) {
-                    if ($timeHis > 0) {
-                        //передическая запись в бд
-                        $link = connectDb(); writeDbArray(2, $link, $arrayResult, 'facebook'.tableName($userURL), $shiftArray);
-                        $shiftArray = $shift + 1;
-                    }
-                    $timeHis = time();
-                }
-
-            }
-        }
-    }
-    $link = connectDb(); writeDbArray(2, $link, $arrayResult, 'facebook'.tableName($userURL), $shiftArray);
-}
 
 function loginInstagram($loginInstagram, $passInstagram)
 {
@@ -285,7 +213,7 @@ function startBots($arr, $localRepository)
     $totalAccount = 0;
     $auth = [];
     $index = 0;
-    for($i = 2; $i <= 5; $i++){
+    for($i = 1; $i <= 5; $i++){
         if(!empty($_POST['facebook_login'.$i]) && !empty($_POST['facebook_password'.$i])){
             $auth[$index]['login'] = $_POST['facebook_login'.$i];
             $auth[$index]['password'] = $_POST['facebook_password'.$i];
