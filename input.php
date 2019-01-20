@@ -14,4 +14,3 @@
     $fromMs        = 30500000;
     $toMs          = 33000000;
     $localRepository = 'https://selenoid.useid.pro/';
-    $admin = 'admin'; $adminPass = '';
