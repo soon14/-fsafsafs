@@ -195,7 +195,7 @@ function fetchData($url, $arr)
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 	curl_setopt($ch, CURLOPT_USERPWD, "admin:ПАРОЛЬ");
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_TIMEOUT_MS, 2000);
+    curl_setopt($ch, CURLOPT_TIMEOUT_MS, 60000);
     curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($arr));
     $result = curl_exec($ch);
     //print_r(curl_getinfo($ch));
