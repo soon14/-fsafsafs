@@ -82,7 +82,7 @@ while (true) {
     try {
         $element = $driver->findElement(WebDriverBy::className("oMwYe"));
         $element->getLocationOnScreenOnceScrolledIntoView();
-        sleep(7);
+        sleep(10);
         $i = 0;
     } catch (Exception $e) {
         if ($i >= $totalExceptions) {
@@ -199,7 +199,7 @@ function fetchData($url, $arr)
     curl_setopt($ch, CURLOPT_TIMEOUT_MS, 60000);
     curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($arr));
     $result = curl_exec($ch);
-    //print_r(curl_getinfo($ch));
+    print_r(curl_getinfo($ch)); echo '<br/>'; print_r(curl_error($ch)); 
     curl_close($ch);
     return $result;
 }
@@ -212,7 +212,7 @@ function printFromBase($URL)
 }
 function startBots($arr, $localRepository)
 {
-    global $userURL;
+    global $userURL; echo '<br/>'; print_r(count($arr)); echo '<br/>';
     $totalAccount = 0;
     $auth = [];
     $index = 0;
