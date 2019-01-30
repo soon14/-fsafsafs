@@ -29,7 +29,7 @@ $desired_capabilities = DesiredCapabilities::chrome();
 $desired_capabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
 $desired_capabilities->setCapability("browserName","chrome");
 $desired_capabilities->setCapability("enableVNC", true);
-$desired_capabilities->setVersion("70.0");
+$desired_capabilities->setVersion("71.0");
 $desired_capabilities->setCapability("binary","/usr/bin/chrome");
 $driver = RemoteWebDriver::create($host, $desired_capabilities);
 $driver->manage()->window()->setSize(new WebDriverDimension(1280, 1024));
