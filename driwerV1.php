@@ -82,7 +82,7 @@ while (true) {
     try {
         $element = $driver->findElement(WebDriverBy::className("oMwYe"));
         $element->getLocationOnScreenOnceScrolledIntoView();
-        sleep(10);
+        sleep(7);
         $i = 0;
     } catch (Exception $e) {
         if ($i >= $totalExceptions) {
