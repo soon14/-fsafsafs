@@ -125,6 +125,24 @@ function getLnFn($html)
     $arrResult = explode(' ', $result);
     return ['ln' => $arrResult[0], 'fn' => $arrResult[1], 'lnfn' => $result];
 }
+function getCityNew($html)
+{
+    preg_match_all('/(u_0_0).*?(Facebook)/is', $html, $matches);
+	preg_match_all('/(href).*?(a)/is', $matches[0][0], $result); 
+	$result = $result[0][0];
+	$result = getArrHtml($result);
+	if(strlen($result[1]) > 50) return '';
+	return $result[1];
+}
+function getCityOld($html)
+{	
+	preg_match_all('/(u_0_1).*?(Facebook)/is', $html, $matches);
+	preg_match_all('/(href).*?(a)/is', $matches[0][0], $result); 
+	$result = $result[0][3];
+	$result = getArrHtml($result);
+	if(strlen($result[1]) > 50) return '';
+    return $result[1];
+}
 function randomScroll($fromMs, $toMs)
 {
     global $driver;
