@@ -131,8 +131,7 @@ function workWithHtml()
         $parseArr[$i]['instagramLink'] = $urlInstagram . $loginUser;
         $i++;
     }
-    $link = connectDb();
-    writeDbArray(1, $link, $parseArr, 'instagram'.tableName($userURL), $shiftArray);
+    $link = connectDb(); writeDbArray(1, $link, $parseArr, 'instagram'.tableName($userURL), $shiftArray); mysqli_close($link);
     $shiftArray = $i + 1;
 }
 
