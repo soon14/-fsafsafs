@@ -129,21 +129,23 @@ function getLnFn($html)
 function getCityNew($html)
 {
     preg_match_all('/(u_0_0).*?(Facebook)/is', $html, $matches);
-	preg_match_all('/(href).*?(a)/is', $matches[0][0], $result); 
-	$result = $result[0][0];
-	$result = str_replace('</a', '', $result);
-	$result = getArrHtml($result);
-	if(strlen($result[1]) > 50) return '';
-	return $result[1];
+    preg_match_all('/(href).*?(a)/is', $matches[0][0], $result); 
+    $result = $result[0][0];
+    $result = str_replace('</a', '', $result);
+    $result = strip_tags($result);
+    $result = getArrHtml($result);
+    if(strlen($result[1]) > 50) return '';
+    return $result[1];
 }
 function getCityOld($html)
 {	
-	preg_match_all('/(u_0_1).*?(Facebook)/is', $html, $matches);
-	preg_match_all('/(href).*?(a)/is', $matches[0][0], $result); 
-	$result = $result[0][3];
-	$result = str_replace('</a', '', $result);
-	$result = getArrHtml($result);
-	if(strlen($result[1]) > 50) return '';
+    preg_match_all('/(u_0_1).*?(Facebook)/is', $html, $matches);
+    preg_match_all('/(href).*?(a)/is', $matches[0][0], $result); 
+    $result = $result[0][3];
+    $result = str_replace('</a', '', $result);
+    $result = strip_tags($result);
+    $result = getArrHtml($result);
+    if(strlen($result[1]) > 50) return '';
     return $result[1];
 }
 function randomScroll($fromMs, $toMs)
