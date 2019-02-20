@@ -168,7 +168,8 @@ function printResult($arr, $printHat)
     foreach($arr as $key => $element)
     {
         $email = ''; $phone = ''; $birthday = '';
-        if(strlen($element['ln']) > 1 && strlen($element['fn']) > 1) {
+        //if(strlen($element['ln']) > 1 && strlen($element['fn']) > 1) 
+	{
             if (strlen($element['email']) > 0 || strlen($element['phone']) > 0 || (strlen($element['birthday']) > 6 && (2019 - substr($element['birthday'], -4) >= 18)) || strlen($element['CityNew']) > 1) {
                 if (strlen($element['email']) > 0) {
                     $email = $element['email'];
