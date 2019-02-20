@@ -122,6 +122,7 @@ function getLnFn($html)
     $result = str_replace('<', '', $matches[0][0]);
     $result = str_replace('title>', '', $result);
     $result = str_replace('title id="pageTitle">','', $result);
+    $result = preg_replace("/[^a-zA-ZА-Яа-я0-9\s]/","",$result);
     $arrResult = explode(' ', $result);
     return ['ln' => $arrResult[0], 'fn' => $arrResult[1], 'lnfn' => $result];
 }
