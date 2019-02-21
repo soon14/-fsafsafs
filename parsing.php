@@ -132,7 +132,7 @@ function getCityNew($html)
     preg_match_all('/(href).*?(a)/is', $matches[0][0], $result); 
     $result = $result[0][0];
     $result = getArrHtml($result);    
-    if(strlen($result[1]) > 50) return '';
+    //if(strlen($result[1]) > 50) return '';
     $result = $result[1];
     $result = str_replace('</a', '', $result);
     $result = strip_tags($result);
