@@ -135,7 +135,7 @@ function getCityNew($html)
     //if(strlen($result[1]) > 50) return '';
     $result = $result[1];
     $result = str_replace('</a', '', $result);
-    $result = strip_tags($result);
+    //$result = strip_tags($result);
     return $result;
 }
 function getCityOld($html)
