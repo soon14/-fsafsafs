@@ -180,7 +180,7 @@ function printResult($arr, $printHat)
                 if (strlen($element['birthday']) > 6 && (2019 - substr($element['birthday'], -4) >= 18)) {
                     $birthday = $element['birthday'];
                 }
-		if(strlen($element['CityNew']) > 1) {
+		if(strlen($element['CityNew']) > 0) {
 		    $CityNew = $element['CityNew'];
 		}
                 $htmlPrint .= $element['ln'] . ',' . $element['fn'] . ',' . $birthday . ',' . $phone . ',' . $email . ',' . $CityNew.'<br/><br/>';
