@@ -132,7 +132,7 @@ function workWithHtml()
         $i++;
     }
     $link = connectDb(); writeDbArray(1, $link, $parseArr, 'instagram'.tableName($userURL), $shiftArray); mysqli_close($link);
-    $shiftArray = $i + 1;
+    $shiftArray = $i + 1; 
 }
 
 
