@@ -163,7 +163,7 @@ function loginFb($loginFacebook, $passFacebook)
 }
 
 function printResult($arr, $printHat)
-{
+{   print_r($arr); echo '<br/>';
     if($printHat === true) $htmlPrint = 'fn,ln,dob,phone,email,ct'.'<br/>';
     foreach($arr as $key => $element)
     {
