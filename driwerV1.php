@@ -28,7 +28,7 @@ if($createNewTable === true) {
     $resultCt = createTable(tableName($userURL)); print_r($resultCt); 
 }
 if($_POST['Checkbox1'] == 1) {
-    print_r(countRecords('facebook'.tableName($userURL)));	
+    echo '<br/>'; print_r(countRecords('facebook'.tableName($userURL))); echo '<br/>';	
     printFromBase($userURL); exit();
 }
 $arrayResult = [];
