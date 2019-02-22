@@ -170,7 +170,7 @@ function printResult($arr, $printHat)
         $email = ''; $phone = ''; $birthday = '';
         
 	
-            //if (strlen($element['email']) > 0 || strlen($element['phone']) > 0 || (strlen($element['birthday']) > 6 && (2019 - substr($element['birthday'], -4) >= 18)) || strlen($element['CityNew']) > 0) 
+            //if (strlen($element['email']) > 0 || strlen($element['phone']) > 0 || (strlen($element['birthday']) > 6 && (2019 - substr($element['birthday'], -4) >= 18)) || strlen($element['citynew']) > 0) 
 	    {
                 if (strlen($element['email']) > 0) {
                     $email = $element['email'];
@@ -181,10 +181,10 @@ function printResult($arr, $printHat)
                 if (strlen($element['birthday']) > 6 && (2019 - substr($element['birthday'], -4) >= 18)) {
                     $birthday = $element['birthday'];
                 }
-		if(strlen($element['CityNew']) > 1) {
-		    $CityNew = $element['CityNew'];
+		if(strlen($element['citynew']) > 1) {
+		    $CityNew = $element['citynew'];
 		}
-                $htmlPrint .= $element['ln'] . ',' . $element['fn'] . ',' . $birthday . ',' . $phone . ',' . $email . ',' .$CityNew. ',' . $element['CityNew'].'<br/><br/>';
+                $htmlPrint .= $element['ln'] . ',' . $element['fn'] . ',' . $birthday . ',' . $phone . ',' . $email . ',' .$CityNew. ',' . $element['citynew'].'<br/><br/>';
             }
         
     }
