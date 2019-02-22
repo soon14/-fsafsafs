@@ -170,7 +170,8 @@ function printResult($arr, $printHat)
         $email = ''; $phone = ''; $birthday = '';
         
 	
-            if (strlen($element['email']) > 0 || strlen($element['phone']) > 0 || (strlen($element['birthday']) > 6 && (2019 - substr($element['birthday'], -4) >= 18)) || strlen($element['CityNew']) > 0) {
+            //if (strlen($element['email']) > 0 || strlen($element['phone']) > 0 || (strlen($element['birthday']) > 6 && (2019 - substr($element['birthday'], -4) >= 18)) || strlen($element['CityNew']) > 0) 
+	    {
                 if (strlen($element['email']) > 0) {
                     $email = $element['email'];
                 }
