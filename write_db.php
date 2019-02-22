@@ -69,5 +69,6 @@ function tableName($name)
     $result = str_replace('www', '', $result);
     $result = str_replace('com', '', $result);
     $result = str_replace('instagram', '', $result);
+    $result .= 'q';
     return $result;
 }
