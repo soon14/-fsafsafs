@@ -164,7 +164,7 @@ function getFbInfo2($fromMs, $toMs, $parseArr)
                             $arrayResult2[$shift]['phone'] = $digital[0];
                             $arrayResult2[$shift]['email'] = getMail($htmlFb);
                             $arrayResult2[$shift]['birthday'] = getBirthday($htmlFb);
-			    $arrayResult2[$shift]['CityNew'] = 'test2';//getCityNew($htmlFb);
+			    $arrayResult2[$shift]['CityNew'] = getCityNew($htmlFb);
 			    $arrayResult2[$shift]['CityOld'] = getCityOld($htmlFb);
                             $shift++;
 
