@@ -15,7 +15,7 @@ function sqlHelper($nRequest, $element, $tableName)
         return "INSERT INTO `".MYSQL_DB."`.`" . $tableName . "`(loginUser, userName, fotoLink, instagramLink, facebookLink, facebookUID) VALUES ('" . $element['loginUser'] . "', '" . $element['userName'] . "', '" . $element['fotoLink'] . "', '" . $element['instagramLink'] . "', '" . $element['facebookLink'] . "', '" .$element['facebookUID']."'); ";
     }
     if($nRequest === 2){
-        return "INSERT INTO `".MYSQL_DB."`.`" . $tableName . "`(url, ln, fn, phone, email, birthday, CityOld, CityNew) VALUES ('" . $element['url'] . "', '" . $element['ln'] . "', '" . $element['fn'] . "', '" . $element['phone'] . "', '" . $element['email'] . "', '" .$element['birthday']. "', '" . $element['CityOld'] . "', '" . $element['CityNew']."'); ";
+        return "INSERT INTO `".MYSQL_DB."`.`" . $tableName . "`(url, ln, fn, phone, email, birthday, cityold, citynew) VALUES ('" . $element['url'] . "', '" . $element['ln'] . "', '" . $element['fn'] . "', '" . $element['phone'] . "', '" . $element['email'] . "', '" .$element['birthday']. "', '" . $element['cityold'] . "', '" . $element['citynew']."'); ";
     }
 }
 function writeDbArray($idSql, $link, $array, $tableName, $shiftArray)
@@ -43,7 +43,7 @@ function createTable($tableName)
     $tquery = mysqli_query($slink, "SELECT COUNT(*) FROM `".MYSQL_DB."`.`" .'facebook'. $tableName ."`");
     if(!$tquery)
     {
-        $query = "CREATE TABLE `".MYSQL_DB."`.`".'facebook'.$tableName."` ( `url` TEXT NULL DEFAULT NULL , `ln` TEXT NULL DEFAULT NULL , `fn` TEXT NULL DEFAULT NULL , `phone` TEXT NULL DEFAULT NULL , `email` TEXT NULL DEFAULT NULL , `birthday` TEXT NULL DEFAULT NULL ,`CityOld` TEXT NULL DEFAULT NULL,`CityNew` TEXT NULL DEFAULT NULL, `id` INT NOT NULL AUTO_INCREMENT , PRIMARY KEY (`id`)) ENGINE = InnoDB";
+        $query = "CREATE TABLE `".MYSQL_DB."`.`".'facebook'.$tableName."` ( `url` TEXT NULL DEFAULT NULL , `ln` TEXT NULL DEFAULT NULL , `fn` TEXT NULL DEFAULT NULL , `phone` TEXT NULL DEFAULT NULL , `email` TEXT NULL DEFAULT NULL , `birthday` TEXT NULL DEFAULT NULL ,`cityold` TEXT NULL DEFAULT NULL,`citynew` TEXT NULL DEFAULT NULL, `id` INT NOT NULL AUTO_INCREMENT , PRIMARY KEY (`id`)) ENGINE = InnoDB";
         $result = mysqli_query($slink, $query);
     }
     return $result;
