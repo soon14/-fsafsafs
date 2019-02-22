@@ -25,7 +25,7 @@ $urlInstagram = 'https://www.instagram.com/';
 
 
 if($createNewTable === true) {
-    createTable(tableName($userURL));
+    $resultCt = createTable(tableName($userURL)); print_r($resultCt);
 }
 if($_POST['Checkbox1'] == 1) {
     printFromBase($userURL); exit();
