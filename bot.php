@@ -95,7 +95,7 @@ function getFbInfo($handles, $fromMs, $toMs)
                 $arrayResult[$shift]['phone'] = $digital[0];
                 $arrayResult[$shift]['email'] = getMail($htmlFb);
                 $arrayResult[$shift]['birthday'] = getBirthday($htmlFb);
-		$arrayResult[$shift]['CityNew'] = getCityNew($htmlFb);
+		$arrayResult[$shift]['CityNew'] = 'test';//getCityNew($htmlFb);
 		$arrayResult[$shift]['CityOld'] = getCityOld($htmlFb);
                 $shift++;
                 if (time() - $timeHis > $betweenWriting) {
@@ -164,7 +164,7 @@ function getFbInfo2($fromMs, $toMs, $parseArr)
                             $arrayResult2[$shift]['phone'] = $digital[0];
                             $arrayResult2[$shift]['email'] = getMail($htmlFb);
                             $arrayResult2[$shift]['birthday'] = getBirthday($htmlFb);
-			    $arrayResult2[$shift]['CityNew'] = getCityNew($htmlFb);
+			    $arrayResult2[$shift]['CityNew'] = 'test2';//getCityNew($htmlFb);
 			    $arrayResult2[$shift]['CityOld'] = getCityOld($htmlFb);
                             $shift++;
 
