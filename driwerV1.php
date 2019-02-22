@@ -25,7 +25,7 @@ $urlInstagram = 'https://www.instagram.com/';
 
 
 if($createNewTable === true) {
-    $resultCt = createTable(tableName($userURL)); print_r($resultCt);
+    $resultCt = createTable(tableName($userURL)); print_r($resultCt); 
 }
 if($_POST['Checkbox1'] == 1) {
     printFromBase($userURL); exit();
@@ -211,7 +211,7 @@ function fetchData($url, $arr)
 function printFromBase($URL)
 {
     $slink = connectDb();
-    $arrRes = readDb('*', 'facebook'.tableName($URL), $slink);
+    $arrRes = readDb('*', 'facebook'.tableName($URL), $slink); print_r(mysqli_error($slink));
     printResult($arrRes, true);
 }
 function startBots($arr, $localRepository)
