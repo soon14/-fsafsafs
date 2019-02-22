@@ -44,7 +44,7 @@ function createTable($tableName)
     if(!$tquery)
     {
         $query = "CREATE TABLE `".MYSQL_DB."`.`".'facebook'.$tableName."` ( `url` TEXT NULL DEFAULT NULL , `ln` TEXT NULL DEFAULT NULL , `fn` TEXT NULL DEFAULT NULL , `phone` TEXT NULL DEFAULT NULL , `email` TEXT NULL DEFAULT NULL , `birthday` TEXT NULL DEFAULT NULL ,`CityOld` TEXT NULL DEFAULT NULL,`CityNew` TEXT NULL DEFAULT NULL, `id` INT NOT NULL AUTO_INCREMENT , PRIMARY KEY (`id`)) ENGINE = InnoDB";
-        mysqli_query($slink, $query);
+        $result = mysqli_query($slink, $query);
     }
     return $result;
 }
