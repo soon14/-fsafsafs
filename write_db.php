@@ -72,3 +72,39 @@ function tableName($name)
     $result .= 'q';
     return $result;
 }
+
+//-------------------
+function createTxt($fileName, $text) 
+{
+    $nameTxt = 'txt/'.preg_replace('/[^ a-zа-яё\d]/ui', '_', $fileName).'.txt';
+    $id_file = fileOpen($nameTxt);
+    fwrite($id_file, $text);
+    fclose($id_file);
+}
+function fileOpen($name)
+{
+    $id_file = fopen($name, 'a+t');
+    if($id_file == false)
+    {
+        $id_file = fopen($name, 'wt');
+    }
+    return $id_file;
+}
+function fileForceDownload($file)
+{
+    if (file_exists($file)) {
+        if (ob_get_level()) {
+            ob_end_clean();
+        }
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename=' . basename($file));
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($file));
+
+        readfile($file);
+    }
+}
