@@ -101,7 +101,9 @@ function getFbInfo($handles, $fromMs, $toMs)
                 if (time() - $timeHis > $betweenWriting) {
                     if ($timeHis > 0) {
                         //передическая запись в бд
-                        $link = connectDb(); writeDbArray(2, $link, $arrayResult, 'facebook'.tableName($userURL), $shiftArray);
+                        $link = connectDb(); writeDbArray(2, $link, $arrayResult, 'facebook'.tableName($userURL), $shiftArray); 
+			createTxt('test', mysqli_error($link));    
+			mysqli_close($link);
                         $shiftArray = $shift + 1;
                     }
                     $timeHis = time();
@@ -110,7 +112,7 @@ function getFbInfo($handles, $fromMs, $toMs)
             }
         }
     }
-    $link = connectDb(); writeDbArray(2, $link, $arrayResult, 'facebook'.tableName($userURL), $shiftArray);
+    $link = connectDb(); writeDbArray(2, $link, $arrayResult, 'facebook'.tableName($userURL), $shiftArray); createTxt('test', mysqli_error($link));  mysqli_close($link);
 }
 function getFbInfo2($fromMs, $toMs, $parseArr)
 {
