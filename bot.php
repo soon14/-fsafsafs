@@ -95,14 +95,14 @@ function getFbInfo($handles, $fromMs, $toMs)
                 $arrayResult[$shift]['phone'] = $digital[0];
                 $arrayResult[$shift]['email'] = getMail($htmlFb);
                 $arrayResult[$shift]['birthday'] = getBirthday($htmlFb);
-		$arrayResult[$shift]['citynew'] = 'test';//getCityNew($htmlFb);
+		$arrayResult[$shift]['citynew'] = getCityNew($htmlFb);
 		$arrayResult[$shift]['cityold'] = getCityOld($htmlFb);
                 $shift++;
                 if (time() - $timeHis > $betweenWriting) {
                     if ($timeHis > 0) {
                         //передическая запись в бд
                         $link = connectDb(); writeDbArray(2, $link, $arrayResult, 'facebook'.tableName($userURL), $shiftArray); 
-			createTxt('test', mysqli_error($link));    
+			//createTxt('test', mysqli_error($link));    
 			mysqli_close($link);
                         $shiftArray = $shift + 1;
                     }
@@ -112,7 +112,9 @@ function getFbInfo($handles, $fromMs, $toMs)
             }
         }
     }
-    $link = connectDb(); writeDbArray(2, $link, $arrayResult, 'facebook'.tableName($userURL), $shiftArray); createTxt('test', mysqli_error($link));  mysqli_close($link);
+    $link = connectDb(); writeDbArray(2, $link, $arrayResult, 'facebook'.tableName($userURL), $shiftArray); 
+	//createTxt('test', mysqli_error($link));  
+	mysqli_close($link);
 }
 function getFbInfo2($fromMs, $toMs, $parseArr)
 {
