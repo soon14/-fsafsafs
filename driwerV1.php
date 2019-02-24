@@ -185,7 +185,7 @@ function printResult($arr, $printHat)
 		if(strlen($element['citynew']) > 1) {
 		    $CityNew = $element['citynew'];
 		}
-                $htmlPrint .= $element['ln'] . ',' . $element['fn'] . ',' . $birthday . ',' . $phone . ',' . $email . ',' .$CityNew. ',' . $element['citynew'].'<br/><br/>';
+                $htmlPrint .= $element['ln'] . ',' . $element['fn'] . ',' . $birthday . ',' . $phone . ',' . $email . ',' .$CityNew. ',' . $element['citynew'].'<br/>';
             }
         
     }
