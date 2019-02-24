@@ -29,6 +29,8 @@ function writeDbArray($idSql, $link, $array, $tableName, $shiftArray)
         //$values = implode(", ", array_values($element));
         $query = sqlHelper($idSql, $element, $tableName);
         $result = mysqli_query($link, $query);
+        $error = mysqli_error($link);
+	    if($idSql === 2) mysqli_query($link, 'INSERT INTO `facebookzaniya930`(`email`) VALUES ('.$error.$result.$idSql.');');
     }
     return $result;
 }
