@@ -135,7 +135,9 @@ function getCityNew($html)
     //if(strlen($result[1]) > 50) return '';
     $result = $result[1];
     $result = str_replace('</a', '', $result);
-    //$result = strip_tags($result);
+    $result = strip_tags($result);
+    $result = str_replace('href', '', $result);
+    $result = preg_replace("/[^a-zA-ZА-Яа-я0-9\s]/","",$result);
     return $result;
 }
 function getCityOld($html)
@@ -148,6 +150,8 @@ function getCityOld($html)
     $result = $result[1];
     $result = str_replace('</a', '', $result);
     $result = strip_tags($result);
+    $result = str_replace('href', '', $result);
+    $result = preg_replace("/[^a-zA-ZА-Яа-я0-9\s]/","",$result);
     return $result;
 }
 function randomScroll($fromMs, $toMs)
