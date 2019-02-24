@@ -28,7 +28,7 @@ function writeDbArray($idSql, $link, $array, $tableName, $shiftArray)
         //$escaped_values = array_map(array($link, 'real_escape_string'), array_values($element));
         //$values = implode(", ", array_values($element));
         $query = sqlHelper($idSql, $element, $tableName);
-        $result = @mysqli_query($link, $query);
+        $result = mysqli_query($link, $query);
     }
     return $result;
 }
@@ -69,7 +69,6 @@ function tableName($name)
     $result = str_replace('www', '', $result);
     $result = str_replace('com', '', $result);
     $result = str_replace('instagram', '', $result);
-    $result .= 'q';
     return $result;
 }
 
