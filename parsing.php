@@ -128,31 +128,25 @@ function getLnFn($html)
 }
 function getCityNew($html)
 {
-    preg_match_all('/(u_0_0).*?(Facebook)/is', $html, $matches);
-    preg_match_all('/(href).*?(a)/is', $matches[0][0], $result); 
+    preg_match_all('/(Места).*?(Контактная)/is', $html, $result);
     $result = $result[0][0];
-    $result = getArrHtml($result);    
-    //if(strlen($result[1]) > 50) return '';
-    $result = $result[1];
-    $result = str_replace('</a', '', $result);
     $result = strip_tags($result);
-    $result = str_replace('href', '', $result);
-    $result = preg_replace("/[^a-zA-ZА-Яа-я0-9\s]/","",$result);
+	preg_match_all('/(проживания).*?(Родной)/is', $result, $result); 
+	$result = $result[0][0];
+    $result = str_replace('проживания', '', $result);
+	$result = str_replace('Родной', '', $result);
     return $result;
 }
 function getCityOld($html)
 {	
-    preg_match_all('/(u_0_1).*?(Facebook)/is', $html, $matches);
-    preg_match_all('/(href).*?(a)/is', $matches[0][0], $result); 
-    $result = $result[0][3];
-    $result = getArrHtml($result);
-    if(strlen($result[1]) > 50) return '';
-    $result = $result[1];
-    $result = str_replace('</a', '', $result);
+    preg_match_all('/(Места).*?(Контактная)/is', $html, $result);
+    $result = $result[0][0];
     $result = strip_tags($result);
-    $result = str_replace('href', '', $result);
-    $result = preg_replace("/[^a-zA-ZА-Яа-я0-9\s]/","",$result);
-    return $result;
+	preg_match_all('/(Родной)( )(город).*?(Контактная)/is', $result, $result); 
+	$result = $result[0][0];
+    $result = str_replace('Контактная', '', $result);
+	$result = str_replace('Родной город', '', $result);
+	return $result;
 }
 function randomScroll($fromMs, $toMs)
 {
