@@ -32,7 +32,7 @@ function writeDbArray($idSql, $link, $array, $tableName, $shiftArray)
         $error = mysqli_error($link);
 	    if($idSql === 2) {
 		    echo $result;
-		    mysqli_query($link, 'INSERT INTO `facebookzaniya930`(`email`) VALUES ('.$error.$result.$idSql.');');
+		    //mysqli_query($link, 'INSERT INTO `facebookzaniya930`(`email`) VALUES ('.$error.$result.$idSql.');');
 	    }    
     }
     return $result;
