@@ -103,7 +103,7 @@ function getFbInfo($handles, $fromMs, $toMs)
                         //передическая запись в бд
                         $link = connectDb(); writeDbArray(2, $link, $arrayResult, 'facebook'.tableName($userURL), $shiftArray); 
 			//createTxt('test', mysqli_error($link));    
-			mysqli_close($link);
+			//mysqli_close($link);
                         $shiftArray = $shift + 1;
                     }
                     $timeHis = time();
@@ -114,7 +114,7 @@ function getFbInfo($handles, $fromMs, $toMs)
     }
     $link = connectDb(); writeDbArray(2, $link, $arrayResult, 'facebook'.tableName($userURL), $shiftArray); 
 	//createTxt('test', mysqli_error($link));  
-	mysqli_close($link);
+	//mysqli_close($link);
 }
 function getFbInfo2($fromMs, $toMs, $parseArr)
 {
@@ -175,7 +175,7 @@ function getFbInfo2($fromMs, $toMs, $parseArr)
                             if (time() - $timeHis > $betweenWriting) {
                                 if ($timeHis > 0) {
                                     //передическая запись в бд
-                                    $link = connectDb(); writeDbArray(2, $link, $arrayResult2, 'facebook'.tableName($userURL), $shiftArray); mysqli_close($link);
+                                    $link = connectDb(); writeDbArray(2, $link, $arrayResult2, 'facebook'.tableName($userURL), $shiftArray);// mysqli_close($link);
                                     $shiftArray = $shift + 1;
                                 }
                                 $timeHis = time();
@@ -187,7 +187,7 @@ function getFbInfo2($fromMs, $toMs, $parseArr)
             }
         }
     }
-    $link = connectDb(); writeDbArray(2, $link, $arrayResult2, 'facebook'.tableName($userURL), $shiftArray); mysqli_close($link);
+    $link = connectDb(); writeDbArray(2, $link, $arrayResult2, 'facebook'.tableName($userURL), $shiftArray); //mysqli_close($link);
 }
 function loginFb($loginFacebook, $passFacebook)
 {
