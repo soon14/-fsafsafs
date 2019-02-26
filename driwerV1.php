@@ -169,9 +169,7 @@ function printResult($arr, $printHat)
     foreach($arr as $key => $element)
     {
         $email = ''; $phone = ''; $birthday = ''; $CityNew = '';
-        
-	
-            //if (strlen($element['email']) > 0 || strlen($element['phone']) > 0 || (strlen($element['birthday']) > 6 && (2019 - substr($element['birthday'], -4) >= 18)) || strlen($element['citynew']) > 0) 
+            if (strlen($element['email']) > 0 || strlen($element['phone']) > 0 || (strlen($element['birthday']) > 6 && (2019 - substr($element['birthday'], -4) >= 18)) || strlen($element['citynew']) > 0) 
 	    {
                 if (strlen($element['email']) > 0) {
                     $email = $element['email'];
