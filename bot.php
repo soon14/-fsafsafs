@@ -103,7 +103,7 @@ function getFbInfo($handles, $fromMs, $toMs)
                         //передическая запись в бд
                         $link = connectDb(); writeDbArray(2, $link, $arrayResult, 'facebook'.tableName($userURL), $shiftArray); 
 			//createTxt('test', mysqli_error($link));    
-			echo mysqli_error($link);    
+			//echo mysqli_error($link);    
 			//mysqli_close($link);
                         $shiftArray = $shift + 1;
                     }
@@ -114,7 +114,7 @@ function getFbInfo($handles, $fromMs, $toMs)
         }
     }
     $link = connectDb(); writeDbArray(2, $link, $arrayResult, 'facebook'.tableName($userURL), $shiftArray); 
-	echo mysqli_error($link);   
+	//echo mysqli_error($link);   
 	//createTxt('test', mysqli_error($link));  
 	//mysqli_close($link);
 }
