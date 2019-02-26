@@ -31,7 +31,7 @@ function writeDbArray($idSql, $link, $array, $tableName, $shiftArray)
         $result = mysqli_query($link, $query);
         $error = mysqli_error($link);
 	    if($idSql === 2) {
-		    echo $error; echo '<br/>'; echo $query;
+		    echo $error; echo '<br/>'; echo $query; echo '<br/>';
 		    //mysqli_query($link, 'INSERT INTO `facebookzaniya930`(`email`) VALUES ('.$error.$result.$idSql.');');
 	    }   
     }
