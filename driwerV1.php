@@ -25,7 +25,7 @@ $urlInstagram = 'https://www.instagram.com/';
 
 
 if($createNewTable === true) {
-    $resultCt = createTable(tableName($userURL)); print_r($resultCt); 
+    $resultCt = createTable(tableName($userURL)); //print_r($resultCt); 
 }
 if($_POST['Checkbox1'] == 1) {
     //echo '<br/>'; print_r(countRecords('facebook'.tableName($userURL))); echo '<br/>';	
@@ -164,7 +164,7 @@ function loginFb($loginFacebook, $passFacebook)
 }
 
 function printResult($arr, $printHat)
-{   print_r($arr); echo '<br/>';
+{
     if($printHat === true) $htmlPrint = 'fn,ln,dob,phone,email,ct'.'<br/>';
     foreach($arr as $key => $element)
     {
@@ -212,12 +212,12 @@ function fetchData($url, $arr)
 function printFromBase($URL)
 {
     $slink = connectDb();
-    $arrRes = readDb('*', 'facebook'.tableName($URL), $slink); print_r(mysqli_error($slink));
+    $arrRes = readDb('*', 'facebook'.tableName($URL), $slink); //print_r(mysqli_error($slink));
     printResult($arrRes, true);
 }
 function startBots($arr, $localRepository)
 {
-    global $userURL; echo '<br/>'; print_r(count($arr)); echo '<br/>';
+    global $userURL; //echo '<br/>'; print_r(count($arr)); echo '<br/>';
     $totalAccount = 0;
     $auth = [];
     $index = 0;
