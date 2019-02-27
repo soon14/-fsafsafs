@@ -37,7 +37,7 @@ $driver->manage()->window()->setSize(new WebDriverDimension(1280, 1024));
 if (!empty($_POST['login']) && !empty($_POST['password'])) { //если введены данные фейсбука
     loginFb($_POST['login'], $_POST['password']);
 }
-
+file_put_contents("test.txt", "test\n test\n");
 $parseArr = $_POST;
 getFbInfo($handles, $fromMs, $toMs);
 getFbInfo2($fromMs, $toMs, $_POST);
