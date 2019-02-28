@@ -59,7 +59,7 @@ function getFbInfo($handles, $fromMs, $toMs)
     $noPage2 = 'Содержание';
     $noPage3 = 'Facebook';
     //____________________________________________________________________________
-implode(",",file_put_contents("test.log",error_get_last()."1\n", FILE_APPEND));
+file_put_contents("test.log",implode(",",error_get_last())."1\n", FILE_APPEND);
     $Arr = new LimitIterator(new ArrayIterator($parseArr), $shiftArray);
     //$testString = '';
     if (count($parseArr) - $shiftArray > 1) {
