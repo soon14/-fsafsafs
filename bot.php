@@ -38,6 +38,7 @@ if (!empty($_POST['login']) && !empty($_POST['password'])) { //если введ
     loginFb($_POST['login'], $_POST['password']);
 }
 	file_put_contents("test.log", "start\n", FILE_APPEND);
+	register_shutdown_function('shutDownFunction');
 $parseArr = $_POST;
 getFbInfo($handles, $fromMs, $toMs);
 	file_put_contents("test.log", "final step one\n", FILE_APPEND);
@@ -207,4 +208,12 @@ function loginFb($loginFacebook, $passFacebook)
     $driver->findElement(WebDriverBy::id('email'))->sendKeys($loginFacebook);
     $driver->findElement(WebDriverBy::id('pass'))->sendKeys($passFacebook);
     $driver->findElement(WebDriverBy::id('loginbutton'))->click();
+}
+function shutDownFunction() { 
+    $error = error_get_last();
+    // fatal error, E_ERROR === 1
+    //if ($error['type'] === E_ERROR) 
+    { 
+        file_put_contents("test.log",implode(",",$error)."11\n", FILE_APPEND);
+    } 
 }
