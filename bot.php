@@ -59,27 +59,28 @@ function getFbInfo($handles, $fromMs, $toMs)
     $noPage2 = 'Содержание';
     $noPage3 = 'Facebook';
     //____________________________________________________________________________
-
+file_put_contents("test.log",error_get_last()."1\n", FILE_APPEND);
     $Arr = new LimitIterator(new ArrayIterator($parseArr), $shiftArray);
     //$testString = '';
     if (count($parseArr) - $shiftArray > 1) {
         foreach ($Arr as $key => $element) {
             $resultUrl = $urlGetFacebook . $element['loginUser'].'/about?section=contact-info';
             $driver->get($resultUrl);
-
+file_put_contents("test.log",error_get_last()."2\n", FILE_APPEND);
 			randomScroll(1500000, 1600000);
             $htmlFb = $driver->getPageSource();
             $lnfn = getLnFn($htmlFb);
-
+file_put_contents("test.log",error_get_last()."3\n", FILE_APPEND);
             $arrNameInstagram = explode(' ', $element['userName']);
+file_put_contents("test.log",error_get_last()."4\n", FILE_APPEND);		
             if (!Empty($lnfn['ln']) && stristr($lnfn['ln'], $noPage2, 0) !== false) {
                 $resultUrl = $urlGetFacebook . $element['loginUser'];
                 $driver->get($resultUrl);
-
+file_put_contents("test.log",error_get_last()."5\n", FILE_APPEND);
                 $htmlFb = $driver->getPageSource();
                 $lnfn = getLnFn($htmlFb);
             }
-
+file_put_contents("test.log",error_get_last()."6\n", FILE_APPEND);
             if (stristr($lnfn['ln'], $noPage, 0) === false &&
                 stristr($lnfn['ln'], $noPage2, 0) === false &&
                 stristr($lnfn['ln'], $noPage3, 0) === false){
@@ -87,7 +88,7 @@ function getFbInfo($handles, $fromMs, $toMs)
                 $ArrHtml = getArrHtml($htmlFb);
                 $digital = getOnlyDigital($ArrHtml, 9, 15);
                 $ArrName = getLnFn($htmlFb);
-
+file_put_contents("test.log",error_get_last()."7\n", FILE_APPEND);
 
                 $arrayResult[$shift]['url'] = $resultUrl;
                 $parseArr[$key]['facebookLink'] = $resultUrl;
@@ -99,10 +100,12 @@ function getFbInfo($handles, $fromMs, $toMs)
 		$arrayResult[$shift]['citynew'] = getCityNew($htmlFb);
 		$arrayResult[$shift]['cityold'] = getCityOld($htmlFb);
                 $shift++;
+file_put_contents("test.log",error_get_last()."8\n", FILE_APPEND);		    
                 if (time() - $timeHis > $betweenWriting) {
                     if ($timeHis > 0) {
                         //передическая запись в бд
                         $link = connectDb(); writeDbArray(2, $link, $arrayResult, 'facebook'.tableName($userURL), $shiftArray); 
+file_put_contents("test.log",error_get_last()."9\n", FILE_APPEND);
 			//createTxt('test', mysqli_error($link));    
 			//echo mysqli_error($link);    
 			//mysqli_close($link);
