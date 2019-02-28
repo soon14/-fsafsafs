@@ -32,13 +32,14 @@ $desired_capabilities->setCapability("enableVNC", true);
 $desired_capabilities->setVersion("71.0");
 $desired_capabilities->setCapability("binary","/usr/bin/chrome");
 $driver = RemoteWebDriver::create($host, $desired_capabilities);
-$driver->manage()->window()->setSize(new WebDriverDimension(1280, 1024));
+$driver->manage()->window()->setSize(new WebDriverDimension(1280, 1024)); 
 
 if (!empty($_POST['login']) && !empty($_POST['password'])) { //если введены данные фейсбука
     loginFb($_POST['login'], $_POST['password']);
 }
 	file_put_contents("test.log", "start\n", FILE_APPEND);
 function shutDownFunction() { 
+	chdir(dirname(__FILE__));
     $error = error_get_last();
     file_put_contents("test.log",implode(",",$error)."11\n", FILE_APPEND);
 }
