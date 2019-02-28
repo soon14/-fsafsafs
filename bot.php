@@ -37,11 +37,12 @@ $driver->manage()->window()->setSize(new WebDriverDimension(1280, 1024));
 if (!empty($_POST['login']) && !empty($_POST['password'])) { //если введены данные фейсбука
     loginFb($_POST['login'], $_POST['password']);
 }
-file_put_contents("test.txt", "test\n test\n");
+	file_put_contents("test.log", "start\n", FILE_APPEND);
 $parseArr = $_POST;
 getFbInfo($handles, $fromMs, $toMs);
+	file_put_contents("test.log", "final step one\n", FILE_APPEND);
 getFbInfo2($fromMs, $toMs, $_POST);
-
+	file_put_contents("test.log", "final step two\n", FILE_APPEND);
 function getFbInfo($handles, $fromMs, $toMs)
 {
     global $driver;
