@@ -45,6 +45,7 @@ function shutDownFunction() {
 }
 register_shutdown_function('shutDownFunction');
 $parseArr = $_POST;
+$testTime = time();
 getFbInfo($handles, $fromMs, $toMs);
 	file_put_contents("test.log", "final step one\n", FILE_APPEND);
 getFbInfo2($fromMs, $toMs, $_POST);
@@ -86,7 +87,7 @@ file_put_contents("test.log",implode(",",error_get_last())."|5|\n", FILE_APPEND)
                 $htmlFb = $driver->getPageSource();
                 $lnfn = getLnFn($htmlFb);
             }
-file_put_contents("test.log",implode(",",error_get_last())."|6|\n", FILE_APPEND);
+file_put_contents("test.log",implode(",",error_get_last())."|".(time() - $testTime)."~|\n", FILE_APPEND);
             if (stristr($lnfn['ln'], $noPage, 0) === false &&
                 stristr($lnfn['ln'], $noPage2, 0) === false &&
                 stristr($lnfn['ln'], $noPage3, 0) === false){
