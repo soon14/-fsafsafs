@@ -19,7 +19,7 @@ require_once('autoload.php');
 include "input.php";
 include "write_db.php";
 include "parsing.php";
-
+$testTime = time();
 // Задаем хост на котором запущен Selenium (localhost - если же на этом компьютере) и номер порта (4444 - порт по умолчанию, если мы не задали другой)
 $host = 'http://localhost:4444/wd/hub';
 $chromeOptions = new ChromeOptions();
@@ -51,7 +51,7 @@ getFbInfo($handles, $fromMs, $toMs);
 getFbInfo2($fromMs, $toMs, $_POST);
 	file_put_contents("test.log", "final step two\n", FILE_APPEND);
 function getFbInfo($handles, $fromMs, $toMs)
-{   $testTime = time();
+{   global $testTime;
     global $driver;
     global $userURL;
     global $parseArr;
