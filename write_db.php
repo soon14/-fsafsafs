@@ -3,6 +3,7 @@ include 'dbConfiguration.php';
 function connectDb()
 {
     $link = mysqli_connect(MYSQL_SERVER, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB);
+    mysqli_set_charset('utf8');	
     return $link;
 }
 function sqlHelper($nRequest, $element, $tableName)
