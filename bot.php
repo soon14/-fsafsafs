@@ -45,13 +45,13 @@ function shutDownFunction() {
 }
 register_shutdown_function('shutDownFunction');
 $parseArr = $_POST;
-$testTime = time();
+
 getFbInfo($handles, $fromMs, $toMs);
 	file_put_contents("test.log", "final step one\n", FILE_APPEND);
 getFbInfo2($fromMs, $toMs, $_POST);
 	file_put_contents("test.log", "final step two\n", FILE_APPEND);
 function getFbInfo($handles, $fromMs, $toMs)
-{
+{   $testTime = time();
     global $driver;
     global $userURL;
     global $parseArr;
