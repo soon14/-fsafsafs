@@ -16,6 +16,7 @@ ini_set('max_execution_time', 0);
 //ini_set('error_reporting', 0);
 error_reporting(E_ALL & ~E_NOTICE);
 header('Content-Type: text/html; charset=utf-8');
+mb_internal_encoding("UTF-8");
 require_once('autoload.php');
 include "input.php";
 include "write_db.php";
