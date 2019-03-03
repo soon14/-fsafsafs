@@ -169,20 +169,18 @@ function printResult($arr, $printHat)
     foreach($arr as $key => $element)
     {
         $email = ''; $phone = ''; $birthday = ''; $CityNew = '';
-            if (strlen($element['email']) > 0 || strlen($element['phone']) > 0 || (strlen($element['birthday']) > 6 && (2019 - substr($element['birthday'], -4) >= 18)) || strlen($element['citynew']) > 0) 
+        $phone = $element['phone']; if(strpos($phone, "+") > 2) $phone = '';
+            if (strlen($element['email']) > 0 || strlen($phone) > 0 || (strlen($element['birthday']) > 6 && (2019 - substr($element['birthday'], -4) >= 18)) || strlen($element['citynew']) > 0) 
 	    {
                 if (strlen($element['email']) > 0) {
                     $email = $element['email'];
-                }
-                if (strlen($element['phone']) > 0) {
-                    $phone = $element['phone'];
-		    if(strpos($phone, "+") > 2) $phone = '';	
                 }
                 if (strlen($element['birthday']) > 6 && (2019 - substr($element['birthday'], -4) >= 18)) {
                     $birthday = $element['birthday'];
                 }
 		if(strlen($element['citynew']) > 0) {
 		    $CityNew = stristr($element['citynew'],',',true);
+		    $CityNew = str_replace(',', '', $CityNew);	
 		}
                 $htmlPrint .= $element['ln'] . ',' . $element['fn'] . ',' . $birthday . ',' . $phone . ',' . $email . ',' .$CityNew. ',' .'<br/>';
             }
