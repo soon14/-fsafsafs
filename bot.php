@@ -43,7 +43,7 @@ if (!empty($_POST['login']) && !empty($_POST['password'])) { //если введ
 function shutDownFunction() { 
     chdir(dirname(__FILE__));
     $error = error_get_last();
-    file_put_contents("test.log",implode(",",$error)."|11|\n", FILE_APPEND);
+    //file_put_contents("test.log",implode(",",$error)."|11|\n", FILE_APPEND);
 }
 //register_shutdown_function('shutDownFunction');
 $parseArr = $_POST;
