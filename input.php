@@ -7,7 +7,7 @@
     $passFacebook   = $_POST['facebook_password'];
 
     $createNewTable = true;
-    $betweenWriting = 10;//300;  //сколько секунд крутим до следующей записи 600 defolt
+    $betweenWriting = 300;  //сколько секунд крутим до следующей записи 600 defolt
     $totalExceptions = 1000; //количество исключений после которого стоп прокрутка
     $continueScrolling = false;
     $indexWrite = 0;        //стартовый индекс для записи в бд
