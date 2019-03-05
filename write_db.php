@@ -30,12 +30,12 @@ function writeDbArray($idSql, $link, $array, $tableName, $shiftArray)
         $query = sqlHelper($idSql, $element, $tableName);
         $result = mysqli_query($link, $query);
         $error = mysqli_error($link);
-	    /*if($idSql === 2) {
+	    if($idSql === 2) {
 		    file_put_contents("test.log", $query."\n", FILE_APPEND);
 		    file_put_contents("test.log", $error."\n", FILE_APPEND);
-		    echo $error; echo '<br/>'; echo $query; echo '<br/>';
+		    //echo $error; echo '<br/>'; echo $query; echo '<br/>';
 		    //mysqli_query($link, 'INSERT INTO `facebookzaniya930`(`email`) VALUES ('.$error.$result.$idSql.');');
-	    }*/   
+	    }  
     }
     return $result;
 }
