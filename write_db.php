@@ -3,10 +3,10 @@ include 'dbConfiguration.php';
 function connectDb()
 {
     $link = mysqli_connect(MYSQL_SERVER, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB);
-    mysqli_set_charset($link, 'utf8mb4');	
-    mysqli_query($link, "SET NAMES 'utf8mb4'");
-    mysqli_query($link, "SET CHARACTER SET 'utf8mb4'");
-    mysqli_query($link, "SET SESSION collation_connection = 'utf8mb4_unicode_ci'");
+    mysqli_set_charset($link, 'utf8');	
+    mysqli_query($link, "SET NAMES 'utf8'");
+    mysqli_query($link, "SET CHARACTER SET 'utf8'");
+    mysqli_query($link, "SET SESSION collation_connection = 'utf8_general_ci'");
     return $link;
 }
 function sqlHelper($nRequest, $element, $tableName)
