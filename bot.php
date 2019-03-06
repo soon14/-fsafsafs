@@ -85,14 +85,15 @@ function getFbInfo($handles, $fromMs, $toMs)
             if (!Empty($lnfn['ln']) && stristr($lnfn['ln'], $noPage2, 0) !== false) {
                 $resultUrl = $urlGetFacebook . $element['loginUser'];
                 $driver->get($resultUrl);
-//file_put_contents("test.log",implode(",",error_get_last())."|5|\n", FILE_APPEND);
+
                 $htmlFb = $driver->getPageSource();
                 $lnfn = getLnFn($htmlFb);
             }
+echo '<br/>'; file_put_contents("test.log",implode(",",mb_detect_encoding($lnfn['ln']), FILE_APPEND); echo '<br/>'; 		
 //file_put_contents("test.log",implode(",",error_get_last())."|".(time() - $testTime)."~|\n", FILE_APPEND);
-            if (stristr($lnfn['ln'], $noPage, 0) === false &&
-                stristr($lnfn['ln'], $noPage2, 0) === false &&
-                stristr($lnfn['ln'], $noPage3, 0) === false){
+            if ((stristr($lnfn['ln'], $noPage, 0) === false && stristr($lnfn['fn'], $noPage, 0) === false) &&
+                (stristr($lnfn['ln'], $noPage2, 0) === false && stristr($lnfn['fn'], $noPage, 0) === false) &&
+                (stristr($lnfn['ln'], $noPage3, 0) === false && stristr($lnfn['fn'], $noPage, 0) === false)){
 
                 $ArrHtml = getArrHtml($htmlFb);
                 $digital = getOnlyDigital($ArrHtml, 9, 15);
