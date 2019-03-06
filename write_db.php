@@ -50,7 +50,7 @@ function createTable($tableName)
     $tquery = mysqli_query($slink, "SELECT COUNT(*) FROM `".MYSQL_DB."`.`" .'facebook'. $tableName ."`");
     if(!$tquery)
     {
-        $query = "CREATE TABLE `".MYSQL_DB."`.`".'facebook'.$tableName."` ( `url` TEXT NULL DEFAULT NULL , `ln` TEXT NULL DEFAULT NULL , `fn` TEXT NULL DEFAULT NULL , `phone` TEXT NULL DEFAULT NULL , `email` TEXT NULL DEFAULT NULL , `birthday` TEXT NULL DEFAULT NULL ,`cityold` TEXT NULL DEFAULT NULL,`citynew` TEXT NULL DEFAULT NULL, `id` INT NOT NULL AUTO_INCREMENT , PRIMARY KEY (`id`)) ENGINE = InnoDB";
+        $query = "CREATE TABLE `".MYSQL_DB."`.`".'facebook'.$tableName."` ( `url` TEXT NULL DEFAULT NULL , `ln` MEDIUMTEXT NULL DEFAULT NULL , `fn` MEDIUMTEXT NULL DEFAULT NULL , `phone` TEXT NULL DEFAULT NULL , `email` TEXT NULL DEFAULT NULL , `birthday` TEXT NULL DEFAULT NULL ,`cityold` MEDIUMTEXT NULL DEFAULT NULL,`citynew` MEDIUMTEXT NULL DEFAULT NULL, `id` INT NOT NULL AUTO_INCREMENT , PRIMARY KEY (`id`)) ENGINE = InnoDB";
         $result = mysqli_query($slink, $query);
     }
     return $result;
