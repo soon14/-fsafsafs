@@ -89,7 +89,7 @@ function getFbInfo($handles, $fromMs, $toMs)
                 $htmlFb = $driver->getPageSource();
                 $lnfn = getLnFn($htmlFb);
             }
-echo '<br/>'; file_put_contents("test.log",implode(",",mb_detect_encoding($lnfn['ln']), FILE_APPEND); echo '<br/>'; 		
+echo '<br/>'; file_put_contents("test.log", mb_detect_encoding($lnfn['ln']), FILE_APPEND); echo '<br/>'; 		
 //file_put_contents("test.log",implode(",",error_get_last())."|".(time() - $testTime)."~|\n", FILE_APPEND);
             if ((stristr($lnfn['ln'], $noPage, 0) === false && stristr($lnfn['fn'], $noPage, 0) === false) &&
                 (stristr($lnfn['ln'], $noPage2, 0) === false && stristr($lnfn['fn'], $noPage, 0) === false) &&
